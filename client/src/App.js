@@ -2,12 +2,13 @@ import {useState, useEffect} from 'react'
 import { Switch, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from './components/Navbar';
+import LoginForm from './components/LoginForm';
+import SignupForm from './components/SignupForm';
 import ItemContainer from './components/ItemContainer';
 import NewItemForm from './components/NewItemForm';
 import ItemDetail from './components/ItemDetail';
 import CapsuleContainer from './components/CapsuleContainer';
 import CapsuleDetail from './components/CapsuleDetail';
-import LoginForm from './components/LoginForm';
 
 
 import './App.css';
@@ -46,7 +47,10 @@ function App() {
       if(res.ok) {
         res.json().then(data => setItems(data))
       } else {
-        res.json().then(data => setErrors(data.error))
+        res.json().then(data => {
+          console.log(data.error)
+          //setErrors(data.error)
+        })
       }
     })
 
@@ -60,8 +64,15 @@ function App() {
       } else {
         res.json().then(data => {
           console.log(data)
-          setErrors(data.error)
+          // setErrors(data.error)
         })
+      }
+    })
+
+    fetch('/me')
+    .then(res => {
+      if(res.ok) {
+        res.json().then(loggedinUser => setCurrentUser(loggedinUser))
       }
     })
 
@@ -92,6 +103,7 @@ function App() {
       {errors ? <li key={errors}>Error: {errors}</li> : null}  
       <Switch>
             <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser}/></Route>
+            <Route exact path="/signup"><SignupForm updateCurrentUser={onUpdateCurrentUser}/></Route>
             <Route exact path="/items"><ItemContainer items={items} updateItemObj={updateItemObj} /></Route>
             <Route exact path="/items/new"><NewItemForm onAddItem={handleAddNewItem} /></Route>
             <Route exact path="/items/:id"><ItemDetail itemObj={itemObj}/></Route>
