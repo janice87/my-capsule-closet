@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import { useHistory } from "react-router";
+import { Link } from 'react-router-dom'
 import { Container, Box, Typography, Grid, TextField, Button} from '@mui/material';
 
 const LoginForm = ({updateCurrentUser}) => {
@@ -78,9 +79,10 @@ const LoginForm = ({updateCurrentUser}) => {
         </Grid>
         </Grid>  
         <Typography variant="h6" align="center">New User? Sign up</Typography>  
-        <Button type="submit" size="large" variant="contained">
+        {/* <Button type="submit" size="large" variant="contained">
               SIGNUP
-            </Button>  
+            </Button>   */}
+            <Button to="/signup" component={Link} size="large" variant="contained">SIGNUP</Button> 
         </Box>
         </Container>     
            
