@@ -7,7 +7,8 @@ const Navbar = () => {
     <AppBar position="sticky">
       <Container maxWidth="md">
         <Toolbar disableGutters>
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>  
+        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+        <Button color="secondary" to="/login" component={Link}>LOGIN</Button>   
         <Button color="secondary" to="/" component={Link}>HOME</Button> 
         <Button color="secondary" to="/items" component={Link}>MY CLOSET</Button> 
         <Button color="secondary" to="/items/new" component={Link}>ADD TO CLOSET</Button> 
