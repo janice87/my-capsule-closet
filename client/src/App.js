@@ -3,7 +3,11 @@ import { Switch, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from './components/Navbar';
 import ItemContainer from './components/ItemContainer';
+import NewItemForm from './components/NewItemForm';
 import ItemDetail from './components/ItemDetail';
+import CapsuleContainer from './components/CapsuleContainer';
+import CapsuleDetail from './components/CapsuleDetail';
+import LoginForm from './components/LoginForm';
 
 
 import './App.css';
@@ -31,40 +35,35 @@ const theme = createTheme({
 function App() {
   const [items, setItems] = useState([])
   const [itemObj, setItemObj] = useState({})
-  // const [capsules, setCapsules] = useState([])
-  // const [capsuleObj, setCapsuleObj] = useState({})
+  const [capsules, setCapsules] = useState([])
+  const [capsuleObj, setCapsuleObj] = useState({})
   const [errors, setErrors] = useState(false)
+  const [currentUser, setCurrentUser] = useState(false)
 
   useEffect(() => {
     fetch('/items')
     .then(res => {
       if(res.ok) {
+        res.json().then(data => setItems(data))
+      } else {
+        res.json().then(data => setErrors(data.error))
+      }
+    })
+
+    fetch('/capsules')
+    .then(res => {
+      if(res.ok) {
         res.json().then(data => {
-            // console.log(data)
-            setItems(data)
+          console.log(data)
+          setCapsules(data)
         })
       } else {
         res.json().then(data => {
-          // console.log(data)
+          console.log(data)
           setErrors(data.error)
         })
       }
     })
-
-    // fetch('/capsules')
-    // .then(res => {
-    //   if(res.ok) {
-    //     res.json().then(data => {
-    //       //console.log(data)
-    //       setCapsules(data)
-    //     })
-    //   } else {
-    //     res.json().then(data => {
-    //       // console.log(data)
-    //       setErrors(data.error)
-    //     })
-    //   }
-    // })
 
   },[])
 
@@ -72,6 +71,19 @@ function App() {
     setItemObj(itemObject)
   }
 
+  const updateCapsuleObj = (capsuleObject) => {
+    setCapsuleObj(capsuleObject)
+  }
+
+  const handleAddNewItem = (newItem) => {
+    const updatedItems = [...items, newItem]
+    setItems(updatedItems)
+    console.log(newItem)
+  }
+
+  const onUpdateCurrentUser = (user) => {
+    setCurrentUser(user)
+  }
 
   return (
     <div>
@@ -79,8 +91,12 @@ function App() {
       <Navbar />
       {errors ? <li key={errors}>Error: {errors}</li> : null}  
       <Switch>
+            <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser}/></Route>
             <Route exact path="/items"><ItemContainer items={items} updateItemObj={updateItemObj} /></Route>
+            <Route exact path="/items/new"><NewItemForm onAddItem={handleAddNewItem} /></Route>
             <Route exact path="/items/:id"><ItemDetail itemObj={itemObj}/></Route>
+            <Route exact path="/capsules"><CapsuleContainer capsules={capsules} updateCapsuleObj={updateCapsuleObj} /></Route>
+            <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} /></Route>
          
           
       </Switch>
