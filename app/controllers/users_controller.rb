@@ -2,12 +2,21 @@ class UsersController < ApplicationController
     def index
         render json: User.all
     end
-
-    # def create
-    #     render json:
+    
+    # get '/me'
+    # def show
+    #   render json: current_user, status: :ok
     # end
 
-    # def show
+    # post '/signup'
+    # def create
+    # user = User.create!(user_params)
+    # session[:user_id] = user.id
+    #     render json: user, status: :created
+    # end
 
+    # private
+    # def user_params
+    #     params.permit(:name, :email, :password, :password_confirmation)
     # end
 end
