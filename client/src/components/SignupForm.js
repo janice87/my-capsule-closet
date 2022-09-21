@@ -9,7 +9,8 @@ const SignupForm = ({updateCurrentUser}) => {
     const [passwordConfirmation, setPasswordConfirmation] = useState("")
     const [errors, setErrors] = useState([])
     const history = useHistory()
-
+  
+    
     const handleSubmit = (e) => {
         e.preventDefault()
         fetch('/signup', {

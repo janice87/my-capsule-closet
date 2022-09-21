@@ -1,21 +1,22 @@
-import {useState} from 'react'
+import React, { useContext, useState } from "react"; 
+import {UserContext} from '../context/user' 
 import { useHistory } from "react-router-dom";
 import { Box, Container, Button, Typography, TextField, Select, MenuItem } from '@mui/material';
 import CheckroomIcon from '@mui/icons-material/Checkroom';
 
 const NewItemsForm = ({onAddItem}) => {
+    const {currentUser} = useContext(UserContext);
     const [formData, setFormData] = useState({
         item_name: "",
         brand: "",
         price: "",
         image: "",
         category: "",
-        user_id: 1
+        user_id: currentUser.id
     })
     const [errors, setErrors] = useState([])
     const history = useHistory();
 
-    
     const handleSubmit = (e) => {
         e.preventDefault()
         fetch('/items', {
@@ -24,18 +25,15 @@ const NewItemsForm = ({onAddItem}) => {
                 'Content-Type': 'application/json',
                 Accept: 'application/json'
             },
-            body: JSON.stringify({formData})
+            body: JSON.stringify({...formData})
         })
         .then(res => {
             if(res.ok) {
-                res.json().then(newItem => {
-                    console.log(newItem)
-                    onAddItem(newItem)
-                })
+                res.json().then(newItem => onAddItem(newItem))
                 history.push('/items')
             } else {
                 res.json().then(data => {
-                    console.log(data)
+                    //console.log(data)
                     setErrors(data.errors)
                 })
             }
@@ -43,14 +41,14 @@ const NewItemsForm = ({onAddItem}) => {
     }
 
     const handleOnchange = (e) => {
-        // console.log(e.target.name)
-        // console.log(e.target.value)
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         })
     }
-
+    
+    console.log(currentUser.id)
+    
     return (
         <div>  
         <Container maxWidth="xs">
