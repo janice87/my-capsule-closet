@@ -1,6 +1,9 @@
+import React, { useContext } from "react"; 
+import {UserContext} from './context/user'  
 import {useState, useEffect} from 'react'
 import { Switch, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Home from './components/Home'
 import Navbar from './components/Navbar';
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
@@ -39,7 +42,9 @@ function App() {
   const [capsules, setCapsules] = useState([])
   const [capsuleObj, setCapsuleObj] = useState({})
   const [errors, setErrors] = useState(false)
-  const [currentUser, setCurrentUser] = useState(false)
+  // const [currentUser, setCurrentUser] = useState(false)
+  // const {currentUser, setCurrentUser} = useContext(UserContext)
+  const {setCurrentUser} = useContext(UserContext)
 
   useEffect(() => {
     fetch('/items')
@@ -49,7 +54,7 @@ function App() {
       } else {
         res.json().then(data => {
           console.log(data.error)
-          //setErrors(data.error)
+          setErrors(data.error)
         })
       }
     })
@@ -64,7 +69,7 @@ function App() {
       } else {
         res.json().then(data => {
           console.log(data)
-          // setErrors(data.error)
+          setErrors(data.error)
         })
       }
     })
@@ -76,7 +81,7 @@ function App() {
       }
     })
 
-  },[])
+  },[setCurrentUser])
 
   const updateItemObj = (itemObject) => {
     setItemObj(itemObject)
@@ -98,20 +103,22 @@ function App() {
 
   return (
     <div>
-      <ThemeProvider theme={theme}>   
-      <Navbar />
-      {errors ? <li key={errors}>Error: {errors}</li> : null}  
+      <ThemeProvider theme={theme}>  
+      <Navbar updateCurrentUser={onUpdateCurrentUser} />
+      <Route exact path="/"><Home /></Route>    
+        {errors ? <li key={errors}>Error: {errors}</li> : null}  
       <Switch>
-            <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser}/></Route>
+            <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser}/></Route>           
             <Route exact path="/signup"><SignupForm updateCurrentUser={onUpdateCurrentUser}/></Route>
             <Route exact path="/items"><ItemContainer items={items} updateItemObj={updateItemObj} /></Route>
             <Route exact path="/items/new"><NewItemForm onAddItem={handleAddNewItem} /></Route>
             <Route exact path="/items/:id"><ItemDetail itemObj={itemObj}/></Route>
             <Route exact path="/capsules"><CapsuleContainer capsules={capsules} updateCapsuleObj={updateCapsuleObj} /></Route>
             <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} /></Route>
-         
+              
           
       </Switch>
+    
       </ThemeProvider>    
    
          
