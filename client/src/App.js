@@ -94,15 +94,15 @@ function App() {
   }
 
   const handleAddNewItem = (newItem) => {
-    const updatedItems = [...items, newItem]
+    const updatedItems = [...items, newItem]  
     setItems(updatedItems)
     console.log(newItem)
   }
 
   const handleEditItem = (updatedObj) => {
-    const updatedItem = items.map(item => 
+    const updatedItems = items.map(item => 
       item.id === updatedObj.id ? updatedObj : item)
-      setItems(updatedItem)
+      setItems(updatedItems)   
   }
 
   const handleOnDeleteItem = (id) => {
@@ -112,6 +112,11 @@ function App() {
 
   const handleAddCapsule = (newCapsule) => {
     const updatedCapsules = [...capsules, newCapsule]
+    setCapsules(updatedCapsules)
+  }
+
+  const handleDeleteCapsule = (id) => {
+    const updatedCapsules = capsules.filter(capsule => capsule.id !== id)
     setCapsules(updatedCapsules)
   }
 
@@ -134,7 +139,7 @@ function App() {
             
             {/* <Route exact path="/capsules/new"><NewCapsuleForm onAddCapsule={handleAddCapsule} /></Route> */}
             <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} /></Route>
-            <Route exact path="/capsules"><CapsuleContainer capsules={capsules} updateCapsuleObj={updateCapsuleObj} onAddCapsule={handleAddCapsule} /></Route>
+            <Route exact path="/capsules"><CapsuleContainer capsules={capsules} updateCapsuleObj={updateCapsuleObj} onAddCapsule={handleAddCapsule} onDeleteCapsule={handleDeleteCapsule} /></Route>
               
           
       </Switch>    

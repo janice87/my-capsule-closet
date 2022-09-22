@@ -3,7 +3,7 @@ import CapsuleList from './CapsuleList';
 import NewCapsuleForm from './NewCapsuleForm';
 import { Box, Container, Typography, Button } from '@mui/material';
 
-const CapsuleContainer = ({capsules, updateCapsuleObj, onAddCapsule}) => {
+const CapsuleContainer = ({capsules, updateCapsuleObj, onAddCapsule, onDeleteCapsule}) => {
   const [showForm, setShowForm] = useState(false)
 
   const handleShowForm = () => {
@@ -22,7 +22,7 @@ const CapsuleContainer = ({capsules, updateCapsuleObj, onAddCapsule}) => {
             <Button size="small" variant="outlined" onClick={handleShowForm} color="secondary">ADD CAPSULE</Button>
             {showForm ? <NewCapsuleForm onAddCapsule={onAddCapsule} /> : null} 
          
-            <CapsuleList capsules={capsules} updateCapsuleObj={updateCapsuleObj} />     
+            <CapsuleList capsules={capsules} updateCapsuleObj={updateCapsuleObj} onDeleteCapsule={onDeleteCapsule}/>     
         </Box>
         </Container> 
            
