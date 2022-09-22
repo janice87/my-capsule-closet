@@ -47,7 +47,7 @@ const NewItemsForm = ({onAddItem}) => {
         })
     }
     
-    console.log(currentUser.id)
+    //console.log(currentUser.id)
     
     return (
         <div>  
@@ -119,7 +119,7 @@ const NewItemsForm = ({onAddItem}) => {
                   value={formData.image}             
                   style={{ marginBottom: "15px", width: "300px" }}  
                   variant="outlined"
-                  label="Image"
+                  label="Image URL"
                   InputLabelProps={{
                     shrink: true,
                   }}       
