@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
     def index
-        render json: Item.all
+        render json: Item.all.order(:category)
     end
 
     def show
