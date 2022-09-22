@@ -17,7 +17,7 @@ const CapsuleCard = ({capsule, updateCapsuleObj}) => {
 
     return (
       <div>     
-        <Card sx={{ maxWidth: 500 }} onClick={handleShowCapsule}>     
+        <Card sx={{ maxWidth: 500 }} onClick={handleShowCapsule} style={{ marginBottom: "1em", marginTop: "1em" }}>     
          <CardContent key={id}>
            <Typography variant="h6">
            {capsule_name}

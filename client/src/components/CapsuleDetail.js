@@ -1,5 +1,5 @@
 // import {useEffect, useState} from 'react'
-import {Typography} from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import OutfitCard from './OutfitCard';
 
 const CapsuleDetail = ({capsule}) => {
@@ -14,12 +14,19 @@ const outfitArray = outfits.map(outfit =>
 )
     
     return (
-      <div>        
-        <Typography variant="h6">
-           {capsule_name}
-           </Typography>         
-           
-           {outfitArray}
+      <div>       
+      <Container maxWidth="lg">
+        <Box
+        m={1}        
+        justifyContent="center"
+        alignItems="center"
+        >
+       
+        <Typography variant="h4" align="center">{capsule_name}</Typography>  
+            
+         {outfitArray}
+           </Box>
+        </Container> 
       </div>
     );
   }
