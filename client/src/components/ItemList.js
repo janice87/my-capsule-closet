@@ -9,10 +9,10 @@ const ItemList = ({items, updateItemObj}) => {
         )
 
     return (
-      <div>       
-        {itemsArray}         
-      </div>
-    );
+      <div>
+        {itemsArray}   
+      </div>      
+      );
   }
   
   export default ItemList;

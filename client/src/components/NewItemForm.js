@@ -69,10 +69,8 @@ const NewItemsForm = ({onAddItem}) => {
           justifyContent="center"
           alignItems="center"
           >          
-            {/* <FormControl onSubmit={handleSubmit} sx={{ m: 1, minWidth: 120 }}> */}
-            <form onSubmit={handleSubmit}>
-            {/* <form onSubmit={handleSubmit} sx={{ m: 1, minWidth: 120 }}> */}
-            <TextField                   
+          <form onSubmit={handleSubmit}>
+              <TextField                   
                   id="outlined-size-small"
                   name="item_name" 
                   onChange={handleOnchange} 
@@ -131,7 +129,8 @@ const NewItemsForm = ({onAddItem}) => {
           id="category"
           value={formData.category}
           label="Category"              
-        onChange={handleOnchange}    
+          onChange={handleOnchange} 
+          style={{ marginBottom: "15px", width: "300px" }}            
         >    
           <MenuItem value="Blouses & Tops">BLOUSES & TOPS</MenuItem>
           <MenuItem value="Bottoms">BOTTOMS</MenuItem>
@@ -144,12 +143,10 @@ const NewItemsForm = ({onAddItem}) => {
             <br/>
             <Button type="submit" variant="outlined">Submit</Button>
              {errors ? errors.map(error => <li key={error}>{error}</li>) : null }            
-            {/* </FormControl>   */}
-            </form>  
-           
+        
+            </form>           
           </Box>
-        </Container>   
-
+        </Container> 
         </div>
     );
   }

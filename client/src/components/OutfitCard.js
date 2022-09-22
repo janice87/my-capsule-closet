@@ -5,9 +5,10 @@ const OutfitCard = ({outfit}) => {
    const outfitList = items.map(item => (
     <div key={item.id} style={{display: 'inline-flex', flexWrap: 'wrap', margin: ".5%"}}>
       <img src={item.image} key={item.id} alt="closet item" style={{height: "35vh"}} />
-    </div>
-   ))
-      
+    </div> 
+    ))
+   
+        
       return (
         <div>      
           

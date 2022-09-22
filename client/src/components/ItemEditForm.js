@@ -64,7 +64,7 @@ const ItemEditForm = ({onEditItem}) => {
         justifyContent="center"
         alignItems="center"
         >
-          <Typography variant="h5" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}>Edit item in your closet</Typography> 
+          <Typography variant="h5" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}>Edit closet item</Typography> 
           <br /> 
         </Box>
         </Container>  
@@ -74,10 +74,9 @@ const ItemEditForm = ({onEditItem}) => {
           display="flex"
           justifyContent="center"
           alignItems="center"
-          >          
-            {/* <FormControl onSubmit={handleSubmit} sx={{ m: 1, minWidth: 120 }}> */}
-            <form onSubmit={handleSubmit}>
-            {/* <form onSubmit={handleSubmit} sx={{ m: 1, minWidth: 120 }}> */}
+          >         
+          
+            <form onSubmit={handleSubmit}>          
             <TextField                   
                   id="outlined-size-small"
                   name="item_name" 
@@ -137,7 +136,8 @@ const ItemEditForm = ({onEditItem}) => {
           id="category"
           value={updatedItem.category}
           label="Category"              
-        onChange={handleOnchange}    
+          onChange={handleOnchange}  
+          style={{ marginBottom: "15px", width: "300px" }}    
         >    
           <MenuItem value="Blouses & Tops">BLOUSES & TOPS</MenuItem>
           <MenuItem value="Bottoms">BOTTOMS</MenuItem>
@@ -150,12 +150,9 @@ const ItemEditForm = ({onEditItem}) => {
             <br/>
             <Button type="submit" variant="outlined">Submit</Button>
              {errors ? errors.map(error => <li key={error}>{error}</li>) : null }            
-            {/* </FormControl>   */}
-            </form>  
-           
+             </form>             
           </Box>
         </Container>   
-
         </div>
     )
 
