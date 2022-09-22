@@ -1,20 +1,41 @@
-import { useHistory } from 'react-router-dom';
+import { useState } from 'react'
+import { useHistory} from 'react-router-dom';
 import {Box, Container, Card, CardActions, CardContent, CardMedia, Button, Typography} from '@mui/material';
 
-const ItemDetail = ({itemObj}) => {
-    const {item_name, brand, price, category, image} = itemObj
+const ItemDetail = ({itemObj, onDeleteItem}) => {
+    const {item_name, brand, price, category, image, id} = itemObj
+    const [errors, setErrors] = useState(false)
     const history = useHistory()
 
     const handleBack = () => {
         history.push('/items')
     }
 
-    // const handleEditItem = () => {
+    const handleEditItem = () => {
+      history.push(`/items/${id}/edit`)
+    }
 
-    // }
+    const handleDeleteItem = () => {
+      fetch(`/items/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {
+        if(res.ok) {
+          onDeleteItem(id)
+          history.push('/items')
+        } else {
+          res.json().then(data => setErrors(data.errors))
+        }
+      })
+    }
+
 
     return (
       <div>   
+        
         <Container maxWidth="xs">
           <Box     
             justifyContent="center"
@@ -45,13 +66,14 @@ const ItemDetail = ({itemObj}) => {
 
           <CardActions>      
             <Button size="small" variant="outlined" onClick={handleBack} color="secondary">BACK</Button>
-            {/* <Button size="small" variant="outlined" onClick={handleEditItem}>EDIT</Button> */}
+            <Button size="small" variant="outlined" onClick={handleEditItem} color="secondary">EDIT</Button>
+            <Button size="small" variant="outlined" onClick={handleDeleteItem} color="secondary">DELETE</Button>
            
           </CardActions>
         </Card>
         </Box>
         </Container>          
-             
+        {errors ? <li key={errors}>{errors}</li>: null}   
       </div>
     );
   }
