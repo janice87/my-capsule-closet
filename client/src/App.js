@@ -12,7 +12,7 @@ import NewItemForm from './components/NewItemForm';
 import ItemDetail from './components/ItemDetail';
 import CapsuleContainer from './components/CapsuleContainer';
 import CapsuleDetail from './components/CapsuleDetail';
-
+import ItemEditForm from "./components/ItemEditForm";
 
 import './App.css';
 
@@ -43,9 +43,10 @@ function App() {
   const [capsuleObj, setCapsuleObj] = useState({})
   const [errors, setErrors] = useState(false)
   // const [currentUser, setCurrentUser] = useState(false)
+  
   // const {currentUser, setCurrentUser} = useContext(UserContext)
   const {setCurrentUser} = useContext(UserContext)
-
+  
   useEffect(() => {
     fetch('/items')
     .then(res => {
@@ -53,7 +54,7 @@ function App() {
         res.json().then(data => setItems(data))
       } else {
         res.json().then(data => {
-          console.log(data.error)
+          //console.log(data.error, "items")
           setErrors(data.error)
         })
       }
@@ -62,13 +63,10 @@ function App() {
     fetch('/capsules')
     .then(res => {
       if(res.ok) {
-        res.json().then(data => {
-          console.log(data)
-          setCapsules(data)
-        })
+        res.json().then(data => setCapsules(data))        
       } else {
         res.json().then(data => {
-          console.log(data)
+          //console.log(data.error, "capsules error")
           setErrors(data.error)
         })
       }
@@ -80,7 +78,6 @@ function App() {
         res.json().then(loggedinUser => setCurrentUser(loggedinUser))
       }
     })
-
   },[setCurrentUser])
 
   const updateItemObj = (itemObject) => {
@@ -97,6 +94,17 @@ function App() {
     console.log(newItem)
   }
 
+  const handleEditItem = (updatedObj) => {
+    const updatedItem = items.map(item => 
+      item.id === updatedObj.id ? updatedObj : item)
+      setItems(updatedItem)
+  }
+
+  const handleOnDeleteItem = (id) => {
+    const updatedItems = items.filter(item => item.id !== id)
+      setItems(updatedItems)
+  } 
+
   const onUpdateCurrentUser = (user) => {
     setCurrentUser(user)
   }
@@ -105,24 +113,25 @@ function App() {
     <div>
       <ThemeProvider theme={theme}>  
       <Navbar updateCurrentUser={onUpdateCurrentUser} />
-      <Route exact path="/"><Home /></Route>    
-        {errors ? <li key={errors}>Error: {errors}</li> : null}  
+
+      {errors ? <h2>{setErrors}</h2> : null}
+
+      <Route exact path="/"><Home /></Route>      
       <Switch>
             <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser}/></Route>           
             <Route exact path="/signup"><SignupForm updateCurrentUser={onUpdateCurrentUser}/></Route>
+           
             <Route exact path="/items"><ItemContainer items={items} updateItemObj={updateItemObj} /></Route>
             <Route exact path="/items/new"><NewItemForm onAddItem={handleAddNewItem} /></Route>
-            <Route exact path="/items/:id"><ItemDetail itemObj={itemObj}/></Route>
+            <Route exact path="/items/:id"><ItemDetail itemObj={itemObj} onDeleteItem={handleOnDeleteItem } /></Route>
+            <Route exact path="/items/:id/edit"><ItemEditForm onEditItem={handleEditItem} /></Route>
+            
             <Route exact path="/capsules"><CapsuleContainer capsules={capsules} updateCapsuleObj={updateCapsuleObj} /></Route>
             <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} /></Route>
               
           
-      </Switch>
-    
-      </ThemeProvider>    
-   
-         
-      
+      </Switch>    
+      </ThemeProvider>           
     </div>
   );
 }
