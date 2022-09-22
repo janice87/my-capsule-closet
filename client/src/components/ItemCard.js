@@ -10,12 +10,10 @@ const ItemCard = ({item, updateItemObj}) => {
         history.push(`/items/${id}`)
     }
 
-    return (
-    // <div style={{flexDirection: "row", display: "flex"}}>
-      <div style={{display: 'inline-flex', flexWrap: 'wrap', margin: ".10%"}}>
+    return (   
+      <div style={{display: 'inline-flex', flexWrap: 'wrap', margin: ".15%"}}>
       <img src={image} key={item.id} alt="closet item" style={{height: "40vh"}} onClick={handleShowCard} />
-      </div>
-    
+      </div>    
     );
   }
   
@@ -37,3 +35,5 @@ const ItemCard = ({item, updateItemObj}) => {
       //       </Card>  
       // </Box>             *
       // </div>
+
+       // <div style={{flexDirection: "row", display: "flex"}}>
