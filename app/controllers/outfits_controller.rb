@@ -1,6 +1,6 @@
 class OutfitsController < ApplicationController
     def index
-        render json: Outfit.all
+        render json: Outfit.all.order(:outfit_name)
     end
 
     def show
