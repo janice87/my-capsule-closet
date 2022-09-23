@@ -14,6 +14,7 @@ import CapsuleContainer from './components/CapsuleContainer';
 import CapsuleDetail from './components/CapsuleDetail';
 //import NewCapsuleForm from "./components/NewCapsuleForm";
 import ItemEditForm from "./components/ItemEditForm";
+//import BuildOutfits from "./components/BuildOutfits";
 
 import './App.css';
 
@@ -42,6 +43,8 @@ function App() {
   const [itemObj, setItemObj] = useState({})
   const [capsules, setCapsules] = useState([])
   const [capsuleObj, setCapsuleObj] = useState({})
+  const [outfits, setOutfits] = useState([])
+  const [outfitItems, setOutfitItems] = useState([])
   const [errors, setErrors] = useState(false)
   // const [currentUser, setCurrentUser] = useState(false)
   
@@ -72,6 +75,22 @@ function App() {
         })
       }
     })
+
+    fetch('/outfits')
+    .then(res => {
+      if(res.ok) {
+        res.json().then(data => setOutfits(data))        
+      } else {
+        res.json().then(data => {
+          //console.log(data.error, "capsules error")
+          setErrors(data.error)
+        })
+      }
+    })
+
+    fetch('/outfit_items')
+    .then(res => res.json())
+    .then(data => setOutfitItems(data))  
 
     fetch('/me')
     .then(res => {
@@ -120,13 +139,24 @@ function App() {
     setCapsules(updatedCapsules)
   }
 
+  const handleAddNewOutfit = (newOutfit) => {
+    const updatedOutfits = [...outfits, newOutfit]
+    setOutfits(updatedOutfits)
+  }
+
+  const handleAddOutfitItem = (newOutfitItem) => {
+    const updatedOutfitItems = [...outfitItems, newOutfitItem]
+    setOutfitItems(updatedOutfitItems)
+  }
+
+
   return (
     <div>
       <ThemeProvider theme={theme}>  
       <Navbar updateCurrentUser={onUpdateCurrentUser} />
 
       {errors ? <h2>{setErrors}</h2> : null}
-
+      
       <Route exact path="/"><Home /></Route>      
       <Switch>
             <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser}/></Route>           
@@ -135,13 +165,19 @@ function App() {
             <Route exact path="/items/new"><NewItemForm onAddItem={handleAddNewItem} /></Route>
             <Route exact path="/items/:id/edit"><ItemEditForm onEditItem={handleEditItem} /></Route>
             <Route exact path="/items/:id"><ItemDetail itemObj={itemObj} onDeleteItem={handleOnDeleteItem } /></Route>
-            <Route exact path="/items"><ItemContainer items={items} updateItemObj={updateItemObj} /></Route>
+            <Route exact path="/items"><ItemContainer items={items} updateItemObj={updateItemObj} onAddOutfitItem={handleAddOutfitItem} onAddNewOutfit={handleAddNewOutfit} /></Route>
             
             {/* <Route exact path="/capsules/new"><NewCapsuleForm onAddCapsule={handleAddCapsule} /></Route> */}
-            <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} /></Route>
+
+            <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} /></Route> 
+            {/* <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} onAddNewOutfit={handleAddNewOutfit} /></Route>  */}
+            {/* <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} outfits={outfits} onAddNewOutfit={handleAddNewOutfit} /></Route>
+            {/* <Route exact path="/capsules"><CapsuleContainer outfits={outfits} updateCapsuleObj={updateCapsuleObj} onAddCapsule={handleAddCapsule} onDeleteCapsule={handleDeleteCapsule}/></Route> */}
             <Route exact path="/capsules"><CapsuleContainer capsules={capsules} updateCapsuleObj={updateCapsuleObj} onAddCapsule={handleAddCapsule} onDeleteCapsule={handleDeleteCapsule} /></Route>
-              
-          
+
+            {/* <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} outfits={outfits} onAddNewOutfit={handleAddNewOutfit} /></Route> */}              
+            {/* <Route exact path="/outfits/new"><BuildOutfits onAddOutfitItem={handleAddOutfitItem}/></Route> */}
+
       </Switch>    
       </ThemeProvider>           
     </div>
