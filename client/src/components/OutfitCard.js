@@ -1,4 +1,3 @@
-
 const OutfitCard = ({outfit}) => {
     const {outfit_name, items} = outfit
   
@@ -7,8 +6,7 @@ const OutfitCard = ({outfit}) => {
       <img src={item.image} key={item.id} alt="closet item" style={{height: "35vh"}} />
     </div> 
     ))
-   
-        
+           
       return (
         <div>      
           

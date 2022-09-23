@@ -1,6 +1,5 @@
-import React, { useContext } from "react"; 
+import React, { useState, useEffect, useContext } from "react"; 
 import {UserContext} from './context/user'  
-import {useState, useEffect} from 'react'
 import { Switch, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Home from './components/Home'
@@ -12,10 +11,7 @@ import NewItemForm from './components/NewItemForm';
 import ItemDetail from './components/ItemDetail';
 import CapsuleContainer from './components/CapsuleContainer';
 import CapsuleDetail from './components/CapsuleDetail';
-//import NewCapsuleForm from "./components/NewCapsuleForm";
 import ItemEditForm from "./components/ItemEditForm";
-//import BuildOutfits from "./components/BuildOutfits";
-
 import './App.css';
 
 const theme = createTheme({
@@ -46,9 +42,6 @@ function App() {
   const [outfits, setOutfits] = useState([])
   const [outfitItems, setOutfitItems] = useState([])
   const [errors, setErrors] = useState(false)
-  // const [currentUser, setCurrentUser] = useState(false)
-  
-  // const {currentUser, setCurrentUser} = useContext(UserContext)
   const {setCurrentUser} = useContext(UserContext)
   
   useEffect(() => {
@@ -89,16 +82,25 @@ function App() {
     })
 
     fetch('/outfit_items')
-    .then(res => res.json())
-    .then(data => setOutfitItems(data))  
+    .then(res => {
+      if(res.ok) {
+        res.json().then(data => setOutfitItems(data))
+      } else {
+        res.json().then(data => setErrors(data.error))
+      }
+    })  
+  },[])
+  
+    // },[setCurrentUser])
 
+  useEffect(() => {    
     fetch('/me')
     .then(res => {
       if(res.ok) {
         res.json().then(loggedinUser => setCurrentUser(loggedinUser))
       }
     })
-  },[setCurrentUser])
+  }, [setCurrentUser])
 
   const onUpdateCurrentUser = (user) => {
     setCurrentUser(user)
@@ -154,30 +156,20 @@ function App() {
     <div>
       <ThemeProvider theme={theme}>  
       <Navbar updateCurrentUser={onUpdateCurrentUser} />
-
-      {errors ? <h2>{setErrors}</h2> : null}
-      
-      <Route exact path="/"><Home /></Route>      
+      {errors ? <h2>{setErrors}</h2> : null}      
       <Switch>
-            <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser}/></Route>           
+            <Route exact path="/"><Home /></Route>      
+            <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser} setItems={setItems} setCapsules={setCapsules} /></Route>  
+            {/* <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser} /></Route>    */}
             <Route exact path="/signup"><SignupForm updateCurrentUser={onUpdateCurrentUser}/></Route>
            
             <Route exact path="/items/new"><NewItemForm onAddItem={handleAddNewItem} /></Route>
             <Route exact path="/items/:id/edit"><ItemEditForm onEditItem={handleEditItem} /></Route>
             <Route exact path="/items/:id"><ItemDetail itemObj={itemObj} onDeleteItem={handleOnDeleteItem } /></Route>
-            <Route exact path="/items"><ItemContainer items={items} updateItemObj={updateItemObj} onAddOutfitItem={handleAddOutfitItem} onAddNewOutfit={handleAddNewOutfit} /></Route>
+            <Route exact path="/items"><ItemContainer items={items} outfits={outfits} capsules={capsules} updateItemObj={updateItemObj} onAddOutfitItem={handleAddOutfitItem} onAddNewOutfit={handleAddNewOutfit} /></Route>
             
-            {/* <Route exact path="/capsules/new"><NewCapsuleForm onAddCapsule={handleAddCapsule} /></Route> */}
-
             <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} /></Route> 
-            {/* <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} onAddNewOutfit={handleAddNewOutfit} /></Route>  */}
-            {/* <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} outfits={outfits} onAddNewOutfit={handleAddNewOutfit} /></Route>
-            {/* <Route exact path="/capsules"><CapsuleContainer outfits={outfits} updateCapsuleObj={updateCapsuleObj} onAddCapsule={handleAddCapsule} onDeleteCapsule={handleDeleteCapsule}/></Route> */}
-            <Route exact path="/capsules"><CapsuleContainer capsules={capsules} updateCapsuleObj={updateCapsuleObj} onAddCapsule={handleAddCapsule} onDeleteCapsule={handleDeleteCapsule} /></Route>
-
-            {/* <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} outfits={outfits} onAddNewOutfit={handleAddNewOutfit} /></Route> */}              
-            {/* <Route exact path="/outfits/new"><BuildOutfits onAddOutfitItem={handleAddOutfitItem}/></Route> */}
-
+            <Route exact path="/capsules"><CapsuleContainer capsules={capsules} updateCapsuleObj={updateCapsuleObj} onAddCapsule={handleAddCapsule} onDeleteCapsule={handleDeleteCapsule} /></Route>                       
       </Switch>    
       </ThemeProvider>           
     </div>

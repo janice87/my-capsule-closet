@@ -139,7 +139,7 @@ const ItemEditForm = ({onEditItem}) => {
           onChange={handleOnchange}  
           style={{ marginBottom: "15px", width: "300px" }}    
         >    
-          <MenuItem value="Blouses & Tops">BLOUSES & TOPS</MenuItem>
+          <MenuItem value="Blouses & Tops">TOPS</MenuItem>
           <MenuItem value="Bottoms">BOTTOMS</MenuItem>
           <MenuItem value="Coats">COATS</MenuItem>
           <MenuItem value="Dresses">DRESSES</MenuItem>

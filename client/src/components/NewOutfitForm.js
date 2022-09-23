@@ -1,21 +1,13 @@
-import {useState, useEffect} from 'react'
+import React, {useState, useContext} from 'react'
+import {UserContext} from '../context/user' 
 import { Box, Container, Button, TextField, MenuItem, Select} from '@mui/material';
 
-//const NewOutfitForm = ({capsule, onAddNewOutfit}) => {
-const NewOutfitForm = ({onAddNewOutfit}) => {
+const NewOutfitForm = ({onAddNewOutfit, capsules}) => {
     const [outfitName, setOutfitName] = useState("")
-    const [capsules, setCapsules] = useState([])
     const [capsuleId, setCapsuleId] = useState("")
-    const [errors, setErrors] = useState([])
-    // const {id} = capsule
-
-    useEffect(() => {
-        fetch('/capsules')
-        .then(res => res.json())
-        .then(data => setCapsules(data)) 
-    },[])
-
-    // pass in capsule id
+     const [errors, setErrors] = useState([])
+    const {currentUser} = useContext(UserContext)
+   
     const handleSubmit = () => {
         fetch('/outfits', {
             method: 'POST',
@@ -25,14 +17,13 @@ const NewOutfitForm = ({onAddNewOutfit}) => {
             },
             body: JSON.stringify({
                 capsule_id: capsuleId,
-                outfit_name: outfitName})            
+                outfit_name: outfitName,
+                user_id: currentUser.id
+        })            
         })
         .then(res => {
             if(res.ok) {
-                res.json().then(newOutfit => {
-                    console.log(newOutfit, "add new outfit")
-                    onAddNewOutfit(newOutfit)
-                } )
+                res.json().then(newOutfit => onAddNewOutfit(newOutfit))
             } else {
                 res.json().then(data => setErrors(data.errors))
             }
@@ -58,7 +49,7 @@ const NewOutfitForm = ({onAddNewOutfit}) => {
             value={capsuleId}
             label="Select Capsule"              
             onChange={e => setCapsuleId(e.target.value)} 
-            style={{ marginBottom: "15px", width: "300px" }}            
+            style={{ marginBottom: "15px", width: "200px" }}            
             >    
             {capsuleOptions}       
             </Select> 
@@ -68,7 +59,7 @@ const NewOutfitForm = ({onAddNewOutfit}) => {
                   name="outfitName" 
                   onChange={e => setOutfitName(e.target.value)} 
                   value={outfitName}             
-                  style={{ marginBottom: "15px", marginTop: "15px", width: "300px" }}  
+                  style={{ marginBottom: "15px", marginTop: "15px", width: "200px" }}  
                   variant="outlined"
                   label="Outfit Name"
                   InputLabelProps={{

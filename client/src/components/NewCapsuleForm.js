@@ -1,18 +1,23 @@
-import {useState} from 'react'
+import React, { useState, useContext  } from "react"; 
+import {UserContext} from '../context/user'  
 import { Box, Container, Button, TextField} from '@mui/material';
 
 const NewCapsuleForm = ({onAddCapsule}) => {
     const [capsuleName, setCapsuleName] = useState("")
+    const {currentUser} = useContext(UserContext)
     const [errors, setErrors] = useState([])
-
-    const handleSubmit = () => {
+ 
+const handleSubmit = () => {
         fetch('/capsules', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json'
             },
-            body: JSON.stringify({capsule_name: capsuleName})            
+            body: JSON.stringify({
+                capsule_name: capsuleName,
+                user_id: currentUser.id
+            })            
         })
         .then(res => {
             if(res.ok) {
@@ -37,21 +42,18 @@ const NewCapsuleForm = ({onAddCapsule}) => {
                   name="capsuleName" 
                   onChange={e => setCapsuleName(e.target.value)} 
                   value={capsuleName}             
-                  style={{ marginBottom: "15px", marginTop: "15px", width: "300px" }}  
+                  style={{ marginBottom: "15px", marginTop: "15px", width: "250px" }}  
                   variant="outlined"
                   label="Capsule Name"
                   InputLabelProps={{
                     shrink: true,
                   }}       
                  /> 
-
             <Button type="submit" variant="outlined">Submit</Button>
             {errors ? errors.map(error => <li key={error}>{error}</li>) : null } 
-        
             </form>  
         </Box>
-        </Container>  
-
+        </Container> 
         </div>
         );
       }

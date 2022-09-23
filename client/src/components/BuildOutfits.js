@@ -1,26 +1,11 @@
-import {useState, useEffect} from 'react'
-import { useHistory } from 'react-router-dom';
+import {useState} from 'react'
 import { Box, Container, Typography, Select, MenuItem, Button } from '@mui/material';
 
-const BuildOutfits = ({onAddOutfitItem}) => {
-    const [outfits, setOutfits] = useState([])
-    const [items, setItems] = useState([])
+const BuildOutfits = ({onAddOutfitItem, outfits, items}) => {
     const [outfitId, setOutfitId] = useState("")
     const [itemId, setItemId] = useState("")
     const [errors, setErrors] = useState([])
-    const history = useHistory()
-
-    useEffect(() => {
-        fetch('/outfits')
-        .then(res => res.json())
-        .then(data => setOutfits(data))     
-        
-        fetch('/items')
-        .then(res => res.json())
-        .then(data => setItems(data))  
-    },[])
-
-
+  
     const handleSubmit = () => {
         fetch('/outfit_items', {
             method: 'POST',
@@ -37,7 +22,7 @@ const BuildOutfits = ({onAddOutfitItem}) => {
             if(res.ok) {
                 res.json().then(data => {
                     onAddOutfitItem(data)
-                    history.push('/capsules')
+                    // history.push('/capsules')
                 })
             } else {
                 res.json().then(data => {
@@ -55,7 +40,6 @@ const BuildOutfits = ({onAddOutfitItem}) => {
     const itemOptions = items.map(item => 
         <MenuItem value={item.id} key={item.id}>{item.brand} {item.item_name}</MenuItem>        
     )
-
     
     return (
         <div>
@@ -66,7 +50,7 @@ const BuildOutfits = ({onAddOutfitItem}) => {
         justifyContent="center"
         alignItems="center"
         >
-          <Typography variant="h5" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}>Build Outfit </Typography> 
+          <Typography variant="h6" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}>Build Outfit </Typography> 
           <br /> 
         </Box>
         </Container>  
@@ -84,7 +68,7 @@ const BuildOutfits = ({onAddOutfitItem}) => {
           value={outfitId}
           label="Select Capsule"              
           onChange={e => setOutfitId(e.target.value)} 
-          style={{ marginBottom: "15px", width: "300px" }}            
+          style={{ marginBottom: "15px", width: "200px" }}            
         >    
           {outfitOptions}       
         </Select>  
@@ -95,7 +79,7 @@ const BuildOutfits = ({onAddOutfitItem}) => {
           value={itemId}
           label="Select Capsule"              
           onChange={e => setItemId(e.target.value)} 
-          style={{ marginBottom: "15px", width: "300px" }}            
+          style={{ marginBottom: "15px", width: "200px" }}            
         >    
           {itemOptions}       
         </Select>  

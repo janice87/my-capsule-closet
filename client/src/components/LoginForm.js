@@ -1,15 +1,41 @@
-import {useState} from 'react'
+import React, { useState} from "react"; 
+// import React, { useState, useContext } from "react"; 
+// import {UserContext} from '../context/user' 
 import { useHistory } from "react-router";
 import { Link } from 'react-router-dom'
 import { Container, Box, Typography, Grid, TextField, Button} from '@mui/material';
 
-const LoginForm = ({updateCurrentUser}) => {
+//const LoginForm = () => {
+const LoginForm = ({updateCurrentUser, setItems, setCapsules}) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [errors, setErrors] = useState(false)
+   // const {setCurrentUser} = useContext(UserContext)
     const history = useHistory()
 
-    const handleSubmit = (e) => {
+    const loadItems = () => (
+      fetch('/items')
+      .then(res => {
+        if(res.ok) {
+          res.json().then(data => setItems(data))
+        } else {
+          res.json().then(data => setErrors(data.error))
+        }
+      })
+    )
+
+    const loadCapsules = () => {
+      fetch('/capsules')
+      .then(res => {
+        if(res.ok) {
+          res.json().then(data => setCapsules(data))        
+        } else {
+          res.json().then(data => setErrors(data.error))
+        }
+      })
+    }
+
+   const handleSubmit = (e) => {
         e.preventDefault()
         fetch('/login', {
             method: 'POST',
@@ -26,11 +52,13 @@ const LoginForm = ({updateCurrentUser}) => {
             if (res.ok) {
                 res.json().then(currentUser => {
                     updateCurrentUser(currentUser)
-                    history.push('/items') 
+                    //setCurrentUser(user)
+                    history.push('/items')  
+                    loadItems()  
+                    loadCapsules()                  
                 })
             } else {
-                res.json().then(data => setErrors(data.error)
-                )
+                res.json().then(data => setErrors(data.error))
             }
         })
     }

@@ -1,16 +1,21 @@
 import ItemCard from './ItemCard'
-import {Grid} from '@mui/material';
+import {Container, Grid} from '@mui/material';
 
 const ItemList = ({items, updateItemObj}) => {
     const itemsArray = items.map((item, index) => 
-        <Grid item lg={4} key={index}>
+        <Grid item lg={3} key={index}>
             <ItemCard item={item} key={item.id} updateItemObj={updateItemObj} />
         </Grid>
         )
 
     return (
       <div>
-        {itemsArray}   
+        <Container> 
+          <Grid container      
+          spacing={1}>      
+          {itemsArray} 
+          </Grid>
+        </Container> 
       </div>      
       );
   }

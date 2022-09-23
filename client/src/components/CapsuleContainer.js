@@ -4,7 +4,6 @@ import NewCapsuleForm from './NewCapsuleForm';
 import { Box, Container, Typography, Button } from '@mui/material';
 
 const CapsuleContainer = ({capsules, updateCapsuleObj, onAddCapsule, onDeleteCapsule}) => {
-  // const CapsuleContainer = ({outfits, updateCapsuleObj, onAddCapsule, onDeleteCapsule}) => {
   const [showForm, setShowForm] = useState(false)
 
   const handleShowForm = () => {
@@ -13,7 +12,7 @@ const CapsuleContainer = ({capsules, updateCapsuleObj, onAddCapsule, onDeleteCap
             
     return (
       <div>        
-         <Container maxWidth="xs">
+        <Container maxWidth="xs">
         <Box
         m={1}        
         justifyContent="center"
@@ -21,10 +20,8 @@ const CapsuleContainer = ({capsules, updateCapsuleObj, onAddCapsule, onDeleteCap
         >
           <Typography variant="h5" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}> Capsule Wardrobe Collections</Typography> 
             <Button size="small" variant="outlined" onClick={handleShowForm} color="secondary">ADD CAPSULE</Button>
-            {showForm ? <NewCapsuleForm onAddCapsule={onAddCapsule} /> : null} 
-         
-            <CapsuleList capsules={capsules} updateCapsuleObj={updateCapsuleObj} onDeleteCapsule={onDeleteCapsule} />     
-            {/* <CapsuleList outfits={outfits} updateCapsuleObj={updateCapsuleObj} onDeleteCapsule={onDeleteCapsule}/>    */}
+            {showForm ? <NewCapsuleForm onAddCapsule={onAddCapsule} /> : null}          
+            <CapsuleList capsules={capsules} updateCapsuleObj={updateCapsuleObj} onDeleteCapsule={onDeleteCapsule} />   
         </Box>
         </Container> 
            
