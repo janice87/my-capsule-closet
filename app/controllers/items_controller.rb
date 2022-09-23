@@ -1,6 +1,12 @@
 class ItemsController < ApplicationController
-    def index
-        render json: Item.all.order(:category)
+    # def index
+    #     render json: Item.all.order(:category)
+    # end
+
+    def index        
+        # render json: @current_user.items.order(:category)
+        # byebug
+        render json: @current_user.items.order(:category)
     end
 
     def show

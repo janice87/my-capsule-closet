@@ -1,6 +1,10 @@
 class OutfitsController < ApplicationController
+    # def index
+    #     render json: Outfit.all.order(:outfit_name)
+    # end
+
     def index
-        render json: Outfit.all.order(:outfit_name)
+        render json: current_user.outfits.order(:outfit_name)
     end
 
     def show
@@ -28,6 +32,6 @@ class OutfitsController < ApplicationController
     private
 
     def outfit_params
-        params.permit(:outfit_name, :capsule_id)
+        params.permit(:outfit_name, :capsule_id, :user_id)
     end
 end

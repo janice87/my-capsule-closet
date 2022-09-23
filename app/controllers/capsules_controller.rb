@@ -1,6 +1,6 @@
 class CapsulesController < ApplicationController
     def index
-        render json: Capsule.all, include: ["outfits", "outfits.items"]
+        render json: @current_user.capsules, include: ["outfits", "outfits.items"]
     end
 
     def show
@@ -28,6 +28,6 @@ class CapsulesController < ApplicationController
     private
     
     def capsule_params
-        params.permit(:capsule_name)
+        params.permit(:capsule_name, :user_id)
     end
 end
