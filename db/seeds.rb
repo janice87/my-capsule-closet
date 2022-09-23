@@ -6,9 +6,18 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+puts "Clear seeds..."
+
+User.destroy_all
+Item.destroy_all
+Capsule.destroy_all
+Outfit.destroy_all
+OutfitItem.destroy_all
+
 puts "Seeding data..."
 
 user1 = User.create(name: "Janice", email: "janice@gmail.com", password: "123456")
+user2 = User.create(name: "Phil", email: "phil@gmail.com", password: "123456")
 
 item1 = Item.create(item_name: "Turtleneck Sweater", brand: "Aritzia", price: 158, category: "Blouses & Tops", image: "https://aritzia.scene7.com/is/image/Aritzia/f21_01_a03_82571_15104_off_a?wid=1200", user_id: user1.id)
 item2 = Item.create(item_name: "Vneck Cardigan", brand: "Aritzia", price: 138, category: "Blouses & Tops", image: "https://aritzia.scene7.com/is/image/Aritzia/f22_01_a03_79410_7325_off_a?wid=1200", user_id: user1.id)
@@ -28,16 +37,22 @@ item12 = Item.create(item_name: "Leather Jacket", brand: "Madewell", category: "
 item13 = Item.create(item_name: "Midi Dress", brand: "Aritzia", price: 128, category: "Dresses", image: "https://aritzia.scene7.com/is/image/Aritzia/large/s22_01_a08_76635_1274_off_a.jpg", user_id: user1.id)
 
 item14 = Item.create(item_name: "Classic Flap Bag", brand: "Chanel", price: 8200, category: "Handbags", image: "https://www.chanel.com/images//t_one///e_brightness:-3/q_auto:good,f_auto,fl_lossy,dpr_1.2/w_1240/small-classic-handbag-black-grained-calfskin-gold-tone-metal-grained-calfskin-gold-tone-metal-packshot-other-a01113y01864c3906-8855283204126.jpg", user_id: user1.id)
-item15 = Item.create(item_name: "Box Bag", brand: "Chanel", price: 3950, category: "Handbags", image: "https://twicpics.celine.com/product-prd/images/large/189173DLS.04FG_2_LIBRARY_85087.jpg?twic=v1/cover=1:1/resize-max=720", user_id: user1.id)
+item15 = Item.create(item_name: "Box Bag", brand: "Celine", price: 3950, category: "Handbags", image: "https://twicpics.celine.com/product-prd/images/large/189173DLS.04FG_2_LIBRARY_85087.jpg?twic=v1/cover=1:1/resize-max=720", user_id: user1.id)
 item16 = Item.create(item_name: "Quilted Backpack", brand: "Chanel", price: 7200, category: "Handbags", image: "https://prod-images.fashionphile.com/thumb/28a1cf6f1e3858642a4f3380c566b025/797533d8f72564ced3e7aa9f95284a84.jpg", user_id: user1.id)
 
 item17 = Item.create(item_name: "White Sneakers", brand: "Adidas", price: 90, category: "Shoes", image: "https://i.s-madewell.com/is/image/madewell/AH776_EB6025_d2?wid=830&hei=1054&fmt=jpeg&fit=crop&qlt=75,1&resMode=bisharp&op_usm=0.5,1,5,0", user_id: user1.id)
 item18 = Item.create(item_name: "Black Leather Boots", brand: "All Saints", price: 299, category: "Shoes", image: "https://images.allsaints.com/products/900/WF069Z/5/WF069Z-5-1.jpg", user_id: user1.id)
 
-capsule1 = Capsule.create(capsule_name: "Fall 2022 Capsule Wardrobe")
+item19 = Item.create(item_name: "Plaid Flannel", brand: "JCrew", price: 89, category: "Blouses & Tops", image: "https://www.jcrew.com/s7-img-facade/BJ497_YD2031?fmt=jpeg&qlt=90,0&resMode=sharp&op_usm=.1,0,0,0&crop=0,0,0,0&wid=850&hei=850", user_id: user2.id)
+item20 = Item.create(item_name: "Slim Fit Jeans", brand: "JCrew", price: 128, category: "Bottoms", image: "https://www.jcrew.com/s7-img-facade/AQ577_DM2263?fmt=jpeg&qlt=90,0&resMode=sharp&op_usm=.1,0,0,0&crop=0,0,0,0&wid=850&hei=850", user_id: user2.id)
+item21 = Item.create(item_name: "Sneakers", brand: "JCrew", price: 85, category: "Shoes", image: "https://www.jcrew.com/s7-img-facade/BE901_EE2256?fmt=jpeg&qlt=90,0&resMode=sharp&op_usm=.1,0,0,0&crop=0,0,0,0&wid=850&hei=850", user_id: user2.id)
 
-outfit1 = Outfit.create(outfit_name: "Fall Casual Outfit 1", capsule_id: capsule1.id)
-outfit2 = Outfit.create(outfit_name: "Fall Casual Outfit 2", capsule_id: capsule1.id)
+capsule1 = Capsule.create(capsule_name: "Fall Capsule Wardrobe", user_id: user1.id)
+capsule2 = Capsule.create(capsule_name: "Fall Basics Capsule Wardrobe", user_id: user2.id)
+
+outfit1 = Outfit.create(outfit_name: "Fall Casual Outfit 1", capsule_id: capsule1.id, user_id: user1.id)
+outfit2 = Outfit.create(outfit_name: "Fall Casual Outfit 2", capsule_id: capsule1.id, user_id: user1.id)
+outfit3 = Outfit.create(outfit_name: "Fall Basics Outfit 1", capsule_id: capsule2.id, user_id: user2.id)
 
 puts "Creating outfits..."
 
@@ -51,3 +66,7 @@ outfit_item6 = OutfitItem.create(outfit_id: outfit2.id, item_id: item5.id)
 outfit_item7 = OutfitItem.create(outfit_id: outfit2.id, item_id: item9.id)
 outfit_item8 = OutfitItem.create(outfit_id: outfit2.id, item_id: item15.id)
 outfit_item9 = OutfitItem.create(outfit_id: outfit2.id, item_id: item18.id)
+
+outfit_item10 = OutfitItem.create(outfit_id: outfit3.id, item_id: item19.id)
+outfit_item11= OutfitItem.create(outfit_id: outfit3.id, item_id: item20.id)
+outfit_item12 = OutfitItem.create(outfit_id: outfit3.id, item_id: item21.id)
