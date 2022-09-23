@@ -4,9 +4,11 @@ import {Card, CardContent, Typography, CardActions, Button} from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import BackspaceOutlinedIcon from '@mui/icons-material/BackspaceOutlined';
 
-const CapsuleCard = ({capsule, updateCapsuleObj, onDeleteCapsule}) => {
+ const CapsuleCard = ({capsule, updateCapsuleObj, onDeleteCapsule}) => {
+ //const CapsuleCard = ({outfit, updateCapsuleObj, onDeleteCapsule}) => {
     const [errors, setErrors] = useState(false)
     const {capsule_name, id} = capsule
+    //const {capsule, id} = outfit
     const history = useHistory()
 
     const handleShowCapsule = () => {       
@@ -38,6 +40,7 @@ const CapsuleCard = ({capsule, updateCapsuleObj, onDeleteCapsule}) => {
 
            <Typography variant="h6">
            {capsule_name}
+           {/* {capsule} */}
            <CardActions> 
             <Button onClick={handleShowCapsule} color="secondary" size="small" variant="outlined">OUTFITS</Button>
            <span>
