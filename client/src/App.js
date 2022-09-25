@@ -11,6 +11,7 @@ import NewItemForm from './components/NewItemForm';
 import ItemDetail from './components/ItemDetail';
 import CapsuleContainer from './components/CapsuleContainer';
 import CapsuleDetail from './components/CapsuleDetail';
+import CapsuleEditForm from "./components/CapsuleEditForm";
 import ItemEditForm from "./components/ItemEditForm";
 import './App.css';
 
@@ -141,6 +142,12 @@ function App() {
     setCapsules(updatedCapsules)
   }
 
+  const handleEditCapsuleName = (updatedCapsule) => {
+    const updatedCapsules = capsules.map(capsule => 
+      capsule.id === updatedCapsule.id ? updatedCapsule : capsule)
+      setCapsules(updatedCapsules)
+  }
+
   const handleAddNewOutfit = (newOutfit) => {
     const updatedOutfits = [...outfits, newOutfit]
     setOutfits(updatedOutfits)
@@ -158,7 +165,6 @@ function App() {
       <Navbar updateCurrentUser={onUpdateCurrentUser} />
       {errors ? <h2>{setErrors}</h2> : null}      
       <Switch>
-            <Route exact path="/"><Home /></Route>      
             <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser} setItems={setItems} setCapsules={setCapsules} /></Route>  
             {/* <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser} /></Route>    */}
             <Route exact path="/signup"><SignupForm updateCurrentUser={onUpdateCurrentUser}/></Route>
@@ -168,8 +174,10 @@ function App() {
             <Route exact path="/items/:id"><ItemDetail itemObj={itemObj} onDeleteItem={handleOnDeleteItem } /></Route>
             <Route exact path="/items"><ItemContainer items={items} outfits={outfits} capsules={capsules} updateItemObj={updateItemObj} onAddOutfitItem={handleAddOutfitItem} onAddNewOutfit={handleAddNewOutfit} /></Route>
             
+            <Route exact path="/capsules/:id/edit"><CapsuleEditForm onEditCapsule={handleEditCapsuleName} /></Route> 
             <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} /></Route> 
             <Route exact path="/capsules"><CapsuleContainer capsules={capsules} updateCapsuleObj={updateCapsuleObj} onAddCapsule={handleAddCapsule} onDeleteCapsule={handleDeleteCapsule} /></Route>                       
+            <Route exact path="/"><Home /></Route>      
       </Switch>    
       </ThemeProvider>           
     </div>
