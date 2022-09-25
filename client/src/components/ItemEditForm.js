@@ -64,7 +64,7 @@ const ItemEditForm = ({onEditItem}) => {
         justifyContent="center"
         alignItems="center"
         >
-          <Typography variant="h5" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}>Edit closet item</Typography> 
+          <Typography variant="h5" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}>EDIT CLOSET ITEM</Typography> 
           <br /> 
         </Box>
         </Container>  
@@ -148,7 +148,7 @@ const ItemEditForm = ({onEditItem}) => {
         </Select>  
 
             <br/>
-            <Button type="submit" variant="outlined">Submit</Button>
+            <Button type="submit" variant="outlined" style={{ marginBottom: "15px", width: "300px" }}>Submit</Button>
              {errors ? errors.map(error => <li key={error}>{error}</li>) : null }            
              </form>             
           </Box>

@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import {UserContext} from '../context/user' 
 import { useHistory } from "react-router-dom";
 import { Box, Container, Button, Typography, TextField, Select, MenuItem } from '@mui/material';
-import CheckroomIcon from '@mui/icons-material/Checkroom';
 
 const NewItemsForm = ({onAddItem}) => {
     const {currentUser} = useContext(UserContext);
@@ -58,7 +57,7 @@ const NewItemsForm = ({onAddItem}) => {
         justifyContent="center"
         alignItems="center"
         >
-          <Typography variant="h5" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}>Add an item to your closet <CheckroomIcon fontSize="medium" /> </Typography> 
+          <Typography variant="h5" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}>ADD ITEM TO CLOSET </Typography> 
           <br /> 
         </Box>
         </Container>  
@@ -141,7 +140,7 @@ const NewItemsForm = ({onAddItem}) => {
         </Select>  
 
             <br/>
-            <Button type="submit" variant="outlined">Submit</Button>
+            <Button type="submit" variant="outlined" style={{ marginBottom: "15px", width: "300px" }} >Submit</Button>
              {errors ? errors.map(error => <li key={error}>{error}</li>) : null }            
         
             </form>           
