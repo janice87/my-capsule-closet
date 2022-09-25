@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react'
 import {UserContext} from '../context/user' 
-import { Box, Container, Button, TextField, MenuItem, Select} from '@mui/material';
+import { Box, Container, Button, TextField, MenuItem} from '@mui/material';
 
 const NewOutfitForm = ({onAddNewOutfit, capsules}) => {
     const [outfitName, setOutfitName] = useState("")
@@ -8,7 +8,8 @@ const NewOutfitForm = ({onAddNewOutfit, capsules}) => {
      const [errors, setErrors] = useState([])
     const {currentUser} = useContext(UserContext)
    
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
         fetch('/outfits', {
             method: 'POST',
             headers: {
@@ -23,7 +24,10 @@ const NewOutfitForm = ({onAddNewOutfit, capsules}) => {
         })
         .then(res => {
             if(res.ok) {
-                res.json().then(newOutfit => onAddNewOutfit(newOutfit))
+                res.json().then(newOutfit =>{
+                    console.log(newOutfit)
+                    onAddNewOutfit(newOutfit)
+                })
             } else {
                 res.json().then(data => setErrors(data.errors))
             }
@@ -36,44 +40,57 @@ const NewOutfitForm = ({onAddNewOutfit, capsules}) => {
 
     return (
         <div>       
-          <Container maxWidth="m">
+          <Container maxWidth="sm">
           <Box       
           display="flex"
+          flexDirection="row"
           justifyContent="center"
           alignItems="center"
           >   
-          <form onSubmit={handleSubmit}>        
+          <form onSubmit={handleSubmit}>    
+          {/* <InputLabel id="demo-simple-select-label">Select Capsule</InputLabel>    
             <Select
-            name="capsule"
-            id="capsule"
-            value={capsuleId}
-            label="Select Capsule"              
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            name="capsule"            
+            value={capsuleId}             
             onChange={e => setCapsuleId(e.target.value)} 
-            style={{ marginBottom: "15px", width: "200px" }}            
+            style={{ marginBottom: "10px", marginRight: "10px", width: "180px", height: 40 }}            
             >    
             {capsuleOptions}       
-            </Select> 
-            
-            <TextField                   
-                  id="outlined-size-small"
-                  name="outfitName" 
-                  onChange={e => setOutfitName(e.target.value)} 
-                  value={outfitName}             
-                  style={{ marginBottom: "15px", marginTop: "15px", width: "200px" }}  
+            </Select>  */}
+
+            <TextField
+                variant="outlined"
+                size="small"
+                name="capsuleId"            
+                value={capsuleId}             
+                onChange={e => setCapsuleId(e.target.value)}  
+                select
+                label="Select Capsule"
+                style={{ marginBottom: "15px", marginTop: "15px", marginRight: "10px", marginLeft: "10px", width: "180px", height: 30 }} 
+                >
+                {capsuleOptions}   
+            </TextField>
+           
+            <TextField                 
                   variant="outlined"
+                  size="small"
+                  name="outfitName"                   
+                  value={outfitName}             
+                  onChange={e => setOutfitName(e.target.value)} 
                   label="Outfit Name"
+                  style={{ marginBottom: "15px", marginTop: "15px", marginRight: "10px", marginLeft: "10px", width: "180px", height: 30 }}  
                   InputLabelProps={{
                     shrink: true,
                   }}       
-                 /> 
-
-            <Button type="submit" variant="outlined">Submit</Button>
-            {errors ? errors.map(error => <li key={error}>{error}</li>) : null } 
-        
-            </form>  
-        </Box>
+                 />               
+            <Button type="submit" variant="outlined" color="secondary" style={{ marginBottom: "15px", marginTop: "20px", marginRight: "10px", marginLeft: "1px", width: "30px", height: 30 }} >Submit</Button>
+          
+            {errors ? errors.map(error => <li key={error}>{error}</li>) : null }         
+            </form>            
+        </Box> 
         </Container>  
-
         </div>
         );
       }

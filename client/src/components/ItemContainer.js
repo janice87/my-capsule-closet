@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import { Box, Typography, Button} from '@mui/material';
+import { Box, Button} from '@mui/material';
 import ItemList from "./ItemList";
 import BuildOutfits from "./BuildOutfits";
 import NewOutfitForm from './NewOutfitForm';
@@ -22,21 +22,18 @@ const ItemContainer = ({items, capsules, outfits, updateItemObj, onAddOutfitItem
       justifyContent="center"
       alignItems="center"   
       display="wrap"        
-      style={{ marginBottom: "2em", marginTop: "2em" }}> 
-          <Typography variant="h5" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}> My Closet </Typography>  
+      style={{ marginBottom: "3em", marginTop: "3em" }}> 
+          {/* <Typography variant="h5" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}> My Closet </Typography>   */}
 
-           <Button size="small" variant="outlined" onClick={handleShowOutfitForm} color="secondary">ADD OUTFIT</Button>         
-          {showOutfitForm ? <NewOutfitForm onAddNewOutfit={onAddNewOutfit} capsules={capsules} /> : null} 
-
-          <Button size="small" variant="outlined" onClick={handleShowForm} color="secondary">BUILD OUTFIT</Button>
-          {showForm ? <BuildOutfits onAddOutfitItem={onAddOutfitItem} outfits={outfits} items={items} /> : null} 
-      </Box>        
-     
-      {/* <div style={{display: 'inline-flex', flexDirecton: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly', margin: ".5%"}}> */}
-        {/* <div style={{display: 'inline-flex', flexWrap: 'wrap', margin: ".5%"}}>   */}
-          <ItemList items={items} updateItemObj={updateItemObj} />  
-        {/* </div> */}
-    
+          <Box m={1} display="flex" justifyContent="center" alignItems="center">
+           <Button size="medium" variant="outlined" onClick={handleShowOutfitForm} color="secondary" style={{ marginRight: ".5em", marginLeft: ".5em" }}>ADD OUTFIT</Button>   
+           <Button size="medium" variant="outlined" onClick={handleShowForm} color="secondary" style={{ marginRight: ".5em", marginLeft: ".5em" }}>BUILD OUTFIT</Button>            
+          </Box>
+           {showOutfitForm ? <NewOutfitForm onAddNewOutfit={onAddNewOutfit} capsules={capsules} /> : null}   
+           {showForm ? <BuildOutfits onAddOutfitItem={onAddOutfitItem} outfits={outfits} items={items} /> : null}             
+          
+           <ItemList items={items} updateItemObj={updateItemObj} /> 
+          </Box> 
       </div>
     );
   }

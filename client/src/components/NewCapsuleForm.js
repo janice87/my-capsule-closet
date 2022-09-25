@@ -7,7 +7,8 @@ const NewCapsuleForm = ({onAddCapsule}) => {
     const {currentUser} = useContext(UserContext)
     const [errors, setErrors] = useState([])
  
-const handleSubmit = () => {
+const handleSubmit = (e) => {
+    e.preventDefault()
         fetch('/capsules', {
             method: 'POST',
             headers: {
@@ -37,20 +38,20 @@ const handleSubmit = () => {
           alignItems="center"
           >   
           <form onSubmit={handleSubmit}>
-          <TextField                   
-                  id="outlined-size-small"
+                <TextField                 
+                  variant="outlined"
+                  size="small"
                   name="capsuleName" 
                   onChange={e => setCapsuleName(e.target.value)} 
-                  value={capsuleName}             
-                  style={{ marginBottom: "15px", marginTop: "15px", width: "250px" }}  
-                  variant="outlined"
-                  label="Capsule Name"
+                  value={capsuleName}           
+                  label="Capsule Name"                        
+                  style={{ marginBottom: "15px", marginTop: "15px", marginRight: "10px", marginLeft: "10px", width: "180px", height: 30 }}  
                   InputLabelProps={{
                     shrink: true,
                   }}       
                  /> 
-            <Button type="submit" variant="outlined">Submit</Button>
-            {errors ? errors.map(error => <li key={error}>{error}</li>) : null } 
+                 <Button type="submit" variant="outlined" color="secondary" style={{ marginBottom: "15px", marginTop: "20px", marginRight: "10px", marginLeft: "1px", width: "30px", height: 30 }} >Submit</Button>
+                 {errors ? errors.map(error => <li key={error}>{error}</li>) : null } 
             </form>  
         </Box>
         </Container> 

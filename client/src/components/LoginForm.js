@@ -107,14 +107,10 @@ const LoginForm = ({updateCurrentUser, setItems, setCapsules}) => {
         </Grid>
         </Grid>  
         <Typography variant="h6" align="center">New User? Sign up</Typography>  
-        {/* <Button type="submit" size="large" variant="contained">
-              SIGNUP
-            </Button>   */}
-            <Button to="/signup" component={Link} size="large" variant="contained">SIGNUP</Button> 
+          <Button to="/signup" component={Link} size="large" variant="contained">SIGNUP</Button> 
         </Box>
-        </Container>     
-           
-      </div>
+        </Container>    
+       </div>
     );
   }
   
