@@ -4,7 +4,8 @@ class OutfitsController < ApplicationController
     # end
 
     def index
-        render json: current_user.outfits.order(:outfit_name)
+         render json: current_user.outfits.order(:outfit_name)
+        # render json: current_user.outfits.order(:capsule)
     end
 
     def show
