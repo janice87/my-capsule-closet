@@ -50,8 +50,8 @@ item21 = Item.create(item_name: "Sneakers", brand: "JCrew", price: 85, category:
 capsule1 = Capsule.create(capsule_name: "Fall Capsule Wardrobe", user_id: user1.id)
 capsule2 = Capsule.create(capsule_name: "Fall Basics Capsule Wardrobe", user_id: user2.id)
 
-outfit1 = Outfit.create(outfit_name: "Fall Casual Outfit 1", capsule_id: capsule1.id, user_id: user1.id)
-outfit2 = Outfit.create(outfit_name: "Fall Casual Outfit 2", capsule_id: capsule1.id, user_id: user1.id)
+outfit1 = Outfit.create(outfit_name: "Fall Cozy Vibes", capsule_id: capsule1.id, user_id: user1.id)
+outfit2 = Outfit.create(outfit_name: "Fall Brunch Outfit", capsule_id: capsule1.id, user_id: user1.id)
 outfit3 = Outfit.create(outfit_name: "Fall Basics Outfit 1", capsule_id: capsule2.id, user_id: user2.id)
 
 puts "Creating outfits..."
