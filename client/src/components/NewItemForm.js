@@ -140,7 +140,7 @@ const NewItemsForm = ({onAddItem}) => {
         </Select>  
 
             <br/>
-            <Button type="submit" variant="outlined" style={{ marginBottom: "15px", width: "300px" }} >Submit</Button>
+            <Button type="submit" variant="contained" color="primary" style={{ marginBottom: "15px", width: "300px" }} >Submit</Button>
              {errors ? errors.map(error => <li key={error}>{error}</li>) : null }            
         
             </form>           

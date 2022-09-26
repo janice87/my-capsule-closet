@@ -148,7 +148,7 @@ const ItemEditForm = ({onEditItem}) => {
         </Select>  
 
             <br/>
-            <Button type="submit" variant="outlined" style={{ marginBottom: "15px", width: "300px" }}>Submit</Button>
+            <Button type="submit" variant="contained" style={{ marginBottom: "15px", width: "300px" }}>Submit</Button>
              {errors ? errors.map(error => <li key={error}>{error}</li>) : null }            
              </form>             
           </Box>

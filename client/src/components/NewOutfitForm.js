@@ -24,9 +24,9 @@ const NewOutfitForm = ({onAddNewOutfit, capsules}) => {
         })
         .then(res => {
             if(res.ok) {
-                res.json().then(newOutfit =>{
-                    console.log(newOutfit)
+                res.json().then(newOutfit =>{                                       
                     onAddNewOutfit(newOutfit)
+                    setOutfitName("")
                 })
             } else {
                 res.json().then(data => setErrors(data.errors))
@@ -48,18 +48,6 @@ const NewOutfitForm = ({onAddNewOutfit, capsules}) => {
           alignItems="center"
           >   
           <form onSubmit={handleSubmit}>    
-          {/* <InputLabel id="demo-simple-select-label">Select Capsule</InputLabel>    
-            <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            name="capsule"            
-            value={capsuleId}             
-            onChange={e => setCapsuleId(e.target.value)} 
-            style={{ marginBottom: "10px", marginRight: "10px", width: "180px", height: 40 }}            
-            >    
-            {capsuleOptions}       
-            </Select>  */}
-
             <TextField
                 variant="outlined"
                 size="small"
@@ -85,7 +73,7 @@ const NewOutfitForm = ({onAddNewOutfit, capsules}) => {
                     shrink: true,
                   }}       
                  />               
-            <Button type="submit" variant="outlined" color="secondary" style={{ marginBottom: "15px", marginTop: "20px", marginRight: "10px", marginLeft: "1px", width: "30px", height: 30 }} >Submit</Button>
+            <Button type="submit" variant="contained" color="primary" style={{ marginBottom: "15px", marginTop: "20px", marginRight: "10px", marginLeft: "1px", width: "30px", height: 30 }} >Submit</Button>
           
             {errors ? errors.map(error => <li key={error}>{error}</li>) : null }         
             </form>            

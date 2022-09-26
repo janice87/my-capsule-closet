@@ -65,9 +65,9 @@ const ItemDetail = ({itemObj, onDeleteItem}) => {
           </CardContent>
 
           <CardActions>      
-            <Button size="small" variant="outlined" onClick={handleBack} color="secondary">BACK</Button>
-            <Button size="small" variant="outlined" onClick={handleEditItem} color="secondary">EDIT</Button>
-            <Button size="small" variant="outlined" onClick={handleDeleteItem} color="secondary">DELETE</Button>
+            <Button size="small" variant="contained" color="primary" onClick={handleBack}>BACK</Button>
+            <Button size="small" variant="contained"  color="primary" onClick={handleEditItem}>EDIT</Button>
+            <Button size="small" variant="contained" color="primary" onClick={handleDeleteItem}>DELETE</Button>
            
           </CardActions>
         </Card>

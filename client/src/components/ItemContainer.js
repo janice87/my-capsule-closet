@@ -5,6 +5,7 @@ import BuildOutfits from "./BuildOutfits";
 import NewOutfitForm from './NewOutfitForm';
 
 const ItemContainer = ({items, capsules, outfits, updateItemObj, onAddOutfitItem, onAddNewOutfit}) => {
+  // const ItemContainer = ({items, capsules, outfits, updateItemObj, onAddOutfitItem, onAddNewOutfit, onUpdateOutfits}) => {
   const [showForm, setShowForm] = useState(false)
   const [showOutfitForm, setShowOutfitForm] = useState(false)
 
@@ -29,9 +30,12 @@ const ItemContainer = ({items, capsules, outfits, updateItemObj, onAddOutfitItem
            <Button size="medium" variant="contained" onClick={handleShowOutfitForm} color="primary" style={{ marginRight: ".5em", marginLeft: ".5em" }}>ADD OUTFIT</Button>   
            <Button size="medium" variant="contained" onClick={handleShowForm} color="primary" style={{ marginRight: ".5em", marginLeft: ".5em" }}>BUILD OUTFIT</Button>            
           </Box>
-           {showOutfitForm ? <NewOutfitForm onAddNewOutfit={onAddNewOutfit} capsules={capsules} /> : null}   
-           {showForm ? <BuildOutfits onAddOutfitItem={onAddOutfitItem} outfits={outfits} items={items} /> : null}             
-          
+           {showOutfitForm ? <NewOutfitForm onAddNewOutfit={onAddNewOutfit} capsules={capsules} /> : null} 
+
+           {showForm ? <BuildOutfits onAddOutfitItem={onAddOutfitItem} outfits={outfits} items={items} /> : null}     
+           {/* {showForm ? <BuildOutfits onAddOutfitItem={onAddOutfitItem} outfits={outfits} items={items} onUpdateOutfits={onUpdateOutfits} /> : null}              */}
+           {/* {showForm ? <BuildOutfits onAddOutfitItem={onAddOutfitItem} outfits={outfits} items={items} capsules={capsules} capsule={capsule} onUpdateCapsules={onUpdateCapsules} updateCapsuleObj={updateCapsuleObj} /> : null}  */}
+
            <ItemList items={items} updateItemObj={updateItemObj} /> 
           </Box> 
       </div>

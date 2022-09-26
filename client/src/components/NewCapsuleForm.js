@@ -22,7 +22,10 @@ const handleSubmit = (e) => {
         })
         .then(res => {
             if(res.ok) {
-                res.json().then(newCapsule => onAddCapsule(newCapsule))
+                res.json().then(newCapsule => {
+                    onAddCapsule(newCapsule)
+                    setCapsuleName("")                    
+                })
             } else {
                 res.json().then(data => setErrors(data.errors))
             }
@@ -50,7 +53,7 @@ const handleSubmit = (e) => {
                     shrink: true,
                   }}       
                  /> 
-                 <Button type="submit" variant="outlined" color="secondary" style={{ marginBottom: "15px", marginTop: "20px", marginRight: "10px", marginLeft: "1px", width: "30px", height: 30 }} >Submit</Button>
+                 <Button type="submit" variant="contained" color="primary" style={{ marginBottom: "15px", marginTop: "20px", marginRight: "10px", marginLeft: "1px", width: "30px", height: 30 }} >Submit</Button>
                  {errors ? errors.map(error => <li key={error}>{error}</li>) : null } 
             </form>  
         </Box>

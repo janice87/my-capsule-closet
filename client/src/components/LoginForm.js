@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { Container, Box, Typography, Grid, TextField, Button} from '@mui/material';
 
 //const LoginForm = () => {
-const LoginForm = ({updateCurrentUser, setItems, setCapsules}) => {
+const LoginForm = ({updateCurrentUser, setItems, setCapsules, setOutfits}) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [errors, setErrors] = useState(false)
@@ -35,6 +35,17 @@ const LoginForm = ({updateCurrentUser, setItems, setCapsules}) => {
       })
     }
 
+    const loadOutfits = () => (
+      fetch('/outfits')
+      .then(res => {
+        if(res.ok) {
+          res.json().then(data => setOutfits(data))
+        } else {
+          res.json().then(data => setErrors(data.error))
+        }
+      })
+    )
+
    const handleSubmit = (e) => {
         e.preventDefault()
         fetch('/login', {
@@ -51,11 +62,11 @@ const LoginForm = ({updateCurrentUser, setItems, setCapsules}) => {
         .then(res => {
             if (res.ok) {
                 res.json().then(currentUser => {
-                    updateCurrentUser(currentUser)
-                    //setCurrentUser(user)
+                    updateCurrentUser(currentUser)                   
                     history.push('/items')  
                     loadItems()  
-                    loadCapsules()                  
+                    loadCapsules()
+                    loadOutfits()                  
                 })
             } else {
                 res.json().then(data => setErrors(data.error))
@@ -67,16 +78,16 @@ const LoginForm = ({updateCurrentUser, setItems, setCapsules}) => {
       <div>  
         <Container maxWidth="xs">
          <Box     
-            justifyContent="right"
-            alignItems="right"           
+            justifyContent="center"
+            alignItems="center"           
             style={{ marginTop: "3em", marginBottom: "3em" }}
           >      
-      <Grid container direction="column" alignItems="right" justify="right">
+      <Grid container direction="column" alignItems="center" justify="center">
         <Grid item> 
           <Typography variant="h4" align="center">Capsule Closet Login</Typography> 
         </Grid>
        
-        <Grid container direction="column" alignItems="right" justify="right" style={{ marginBottom: "1em", marginTop: "1em" }}>
+        <Grid container direction="column" alignItems="center" justify="center" style={{ marginBottom: "1em", marginTop: "1em" }}>
         <Grid item style={{ border: "0.2px solid gray", paddingLeft: "10px", paddingRight: "10px" }}>              
           <form onSubmit={handleSubmit}> 
             <TextField
@@ -97,7 +108,7 @@ const LoginForm = ({updateCurrentUser, setItems, setCapsules}) => {
               style={{ marginBottom: "5px", marginTop: "5px", padding: "5px" }}
             />
             <Box m={1} display="flex" justifyContent="center" alignItems="center">
-            <Button type="submit" size="large" variant="contained">
+            <Button type="submit" size="medium" variant="contained">
               LOGIN
             </Button>   
            </Box>
@@ -106,8 +117,11 @@ const LoginForm = ({updateCurrentUser, setItems, setCapsules}) => {
         </Grid>
         </Grid>
         </Grid>  
-        <Typography variant="h6" align="center">New User? Sign up</Typography>  
-          <Button to="/signup" component={Link} size="large" variant="contained">SIGNUP</Button> 
+          <Box m={1}  display="flex" justifyContent="center" alignItems="center">
+          <Typography variant="h6" align="center" style={{padding: "5px" }}>New User?</Typography>  
+          <br />
+          <Button to="/signup" component={Link} size="small" variant="contained">SIGNUP</Button> 
+          </Box>
         </Box>
         </Container>    
        </div>
