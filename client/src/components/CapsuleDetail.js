@@ -1,21 +1,41 @@
-//import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import { useHistory } from 'react-router-dom';
 import { Box, Container, Typography, Button } from '@mui/material';
 import OutfitCard from './OutfitCard';
-//import NewOutfitForm from './NewOutfitForm';
 
 const CapsuleDetail = ({capsule}) => {
-  const {capsule_name, outfits} = capsule
+  const [outfits, setOutfits] = useState([])
+  const [errors, setErrors] = useState(false)
+  const {capsule_name, id} = capsule
   const history = useHistory()
 
-const outfitArray = outfits.map(outfit => 
+  useEffect(() => {
+    fetch('/outfits')
+    .then(res => {
+      if(res.ok) {
+        res.json().then(outfits => {
+          console.log(outfits, "useeffect outfits CAPSULE DETAIL")
+          setOutfits(outfits)
+        })        
+      } else {
+        res.json().then(data => {
+          //console.log(data.error, "outfits cap detail error")
+          setErrors(data.error)
+        })
+      }
+    })
+  },[])
+
+const outfitsFiltered = outfits.filter(outfit => outfit.capsule_id === id)  
+
+const outfitArray = outfitsFiltered.map(outfit => 
   <OutfitCard outfit={outfit} key={outfit.id} />
 )
 
 const handleBack = () => {
   history.push('/capsules')
-}
-   
+}   
+
     return (
       <div>       
       <Container maxWidth="lg">
@@ -31,6 +51,7 @@ const handleBack = () => {
          {outfitArray}
            </Box>
         </Container> 
+        {errors ? <h2>{setErrors}</h2> : null} 
       </div>
     );
   }

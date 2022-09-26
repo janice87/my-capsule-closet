@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import { useHistory } from 'react-router-dom';
-import {Card, CardContent, Typography, CardActions, Button} from '@mui/material';
+import {Box, Container, Typography, Button} from '@mui/material';
 import IconButton from '@mui/material/IconButton'
 import BackspaceOutlinedIcon from '@mui/icons-material/BackspaceOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -37,42 +37,42 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
     }
    
     return (
-      <div>     
-        <Card sx={{ maxWidth: 400 }} style={{ marginBottom: "1em", marginTop: "1em" }}>     
-         <CardContent key={id}>
-
-           <Typography variant="h6">
-           {capsule_name}
-           </Typography>   
-           <span>
-           <CardActions>
-           <IconButton aria-label="delete" size="small" onClick={handleDeleteCapsule} color="secondary" style={{ marginRight: ".3em", marginLeft: ".3em", height: 10 }}>
+      <div>   
+        <Container maxWidth="md">
+        <Box     
+        justifyContent="center"
+        alignItems="center"
+        boxShadow={1}       
+        sx={{
+          width: 350,
+          height: 100,
+          marginTop: "1em",
+          marginBottom: "1em",
+          backgroundColor: '#FFF',
+          '&:hover': {
+            backgroundColor: 'primary.main',
+            opacity: [0.9, 0.8, 0.7],
+          },
+        }}
+        >    
+         
+        <Typography align="left" variant="h6" style={{ marginLeft: ".5em", marginBottom: ".5em", marginTop: "1em" }}>
+          {capsule_name}
+          <IconButton aria-label="delete" size="small" onClick={handleDeleteCapsule} color="secondary" align="right" style={{ marginRight: ".05em", marginLeft: ".05em"}}>
             <BackspaceOutlinedIcon fontSize="small" />
           </IconButton> 
-          <IconButton aria-label="edit" size="small" onClick={handleEditCapsule} color="secondary" style={{ marginRight: ".3em", marginLeft: ".3em" }}>
+          <IconButton aria-label="edit" size="small" onClick={handleEditCapsule} color="secondary" style={{ marginRight: ".05em", marginLeft: ".05em" }}>
             <EditOutlinedIcon fontSize="small" />
-          </IconButton> 
-           </CardActions> 
-            </span>  
-            
+          </IconButton>          
+        </Typography> 
 
-           {/* <span>      */}
-           {/* <CardActions> 
-            <Button onClick={handleShowCapsule} color="secondary" size="small" variant="outlined">OUTFITS</Button>
-           <span>
-           <IconButton aria-label="delete" size="small" onClick={handleDeleteCapsule} color="secondary" style={{ marginRight: ".3em", marginLeft: ".3em" }}>
-            <BackspaceOutlinedIcon fontSize="small" />
-          </IconButton> 
-          <IconButton aria-label="edit" size="small" onClick={handleDeleteCapsule} color="secondary" style={{ marginRight: ".3em", marginLeft: ".3em" }}>
-            <EditOutlinedIcon fontSize="small" />
-          </IconButton> 
-          </span>
-          </CardActions> */}
-          {/* </span>   */}
-                
-           <Button onClick={handleShowCapsule} color="secondary" size="small" variant="outlined">OUTFITS</Button>
-           </CardContent>      
-        </Card>
+        <Box m={1} display="flex" justifyContent="center" alignItems="center" style={{ marginTop: ".5em", marginBottom: "1em" }}>
+          <Button onClick={handleShowCapsule} color="primary" variant="contained" style={{ marginRight: ".5em", marginLeft: ".5em", marginTop: ".5em", marginBottom: "1em" }}>OUTFITS</Button>
+        </Box>    
+      
+        </Box>
+        </Container>  
+        
         {errors ? <li key={errors}>{errors}</li>: null}              
       </div>
     );

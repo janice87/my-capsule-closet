@@ -9,11 +9,7 @@ const CapsuleEditForm = ({onEditCapsule}) => {
         capsule_name: "",
         user_id: currentUser.id
     })
-    // const [updatedCapsuleName, setUpdatedCapsuleName] = useState("")
-    // const [user_id, setUpdatedCapsuleName] = useState("")
-    
     const [errors, setErrors] = useState([])
-    // const {capsule_name} = capsuleObj
     const {id} = useParams()
     const history = useHistory()
 
@@ -40,7 +36,9 @@ const CapsuleEditForm = ({onEditCapsule}) => {
         })
         .then(res => {
             if(res.ok) {
-                res.json().then(data => onEditCapsule(data))
+                res.json().then(data => {               
+                    onEditCapsule(data)
+                } )
                 history.push(`/capsules`)
             } else {
                 res.json().then(data => setErrors(data.errors))
@@ -49,6 +47,8 @@ const CapsuleEditForm = ({onEditCapsule}) => {
     }
 
     const handleOnchange = (e) => {
+        // console.log(e.target.name)
+        // console.log(e.target.value)
         setUpdatedCapsule({
             ...updatedCapsule,
             [e.target.name]: e.target.value
@@ -74,12 +74,11 @@ const CapsuleEditForm = ({onEditCapsule}) => {
           display="flex"
           justifyContent="center"
           alignItems="center"
-          >         
-          
+          >        
             <form onSubmit={handleSubmit}>          
             <TextField                   
                   id="outlined-size-small"
-                  name="updatedCapsuleName" 
+                  name="capsule_name" 
                   onChange={handleOnchange} 
                   value={updatedCapsule.capsule_name}             
                   style={{ marginBottom: "15px", width: "300px" }}  
@@ -89,9 +88,8 @@ const CapsuleEditForm = ({onEditCapsule}) => {
                     shrink: true,
                   }}       
                  /> 
-
             <br/>
-            <Button type="submit" variant="outlined" style={{ marginBottom: "15px", width: "300px" }}>Submit</Button>
+            <Button type="submit" variant="contained" style={{ marginBottom: "15px", width: "300px" }}>Submit</Button>
              {errors ? errors.map(error => <li key={error}>{error}</li>) : null }            
              </form>             
           </Box>

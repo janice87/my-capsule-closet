@@ -18,10 +18,10 @@ const CapsuleContainer = ({capsules, updateCapsuleObj, onAddCapsule, onDeleteCap
         justifyContent="center"
         alignItems="center"
         >
-          <Typography variant="h5" align="center" style={{ marginBottom: ".5em", marginTop: "1em" }}> Capsule Wardrobe Collections</Typography> 
+          <Typography variant="h5" align="center" style={{ marginBottom: ".5em", marginTop: "1em" }}> Capsule Wardrobe Collections</Typography>
 
           <Box m={1} display="flex" justifyContent="center" alignItems="center">
-            <Button size="small" variant="outlined" onClick={handleShowForm} color="secondary" style={{ marginRight: ".5em", marginLeft: ".5em" }}>ADD CAPSULE</Button>
+            <Button onClick={handleShowForm} size="small" variant="contained" color="primary" style={{ marginRight: ".5em", marginLeft: ".5em" }}>ADD CAPSULE</Button>
           </Box>
             {showForm ? <NewCapsuleForm onAddCapsule={onAddCapsule} /> : null}          
             <CapsuleList capsules={capsules} updateCapsuleObj={updateCapsuleObj} onDeleteCapsule={onDeleteCapsule} />   
