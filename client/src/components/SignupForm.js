@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useHistory } from "react-router";
 import { Container, Box, Typography, Grid, TextField, Button} from '@mui/material';
 
-const SignupForm = ({updateCurrentUser}) => {
+const SignupForm = ({updateCurrentUser, setItems, setCapsules, setOutfits, setOutfitItems}) => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -10,7 +10,47 @@ const SignupForm = ({updateCurrentUser}) => {
     const [errors, setErrors] = useState([])
     const history = useHistory()
   
-    
+    const loadFetch = () => {
+      fetch('/items')
+      .then(res => {
+        if(res.ok) {
+          res.json().then(data => setItems(data))
+        } else {
+          res.json().then(data => setErrors(data.error))
+        }
+      })
+
+      fetch('/capsules')
+      .then(res => {
+        if(res.ok) {
+          res.json().then(data => setCapsules(data))        
+        } else {
+          res.json().then(data => setErrors(data.error))
+        }
+      })
+
+      fetch('/outfits')
+      .then(res => {
+        if(res.ok) {
+          res.json().then(data => setOutfits(data))
+        } else {
+          res.json().then(data => setErrors(data.error))
+        }
+      })
+
+      fetch('/outfit_items')
+      .then(res => {
+        if(res.ok) {
+          res.json().then(data => {
+            console.log(data, "outfit items from login")
+            setOutfitItems(data)
+          })
+        } else {
+          res.json().then(data => setErrors(data.error))
+        }
+      })
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         fetch('/signup', {
@@ -30,7 +70,8 @@ const SignupForm = ({updateCurrentUser}) => {
             if(res.ok) {
                 res.json().then(newUser => {
                     updateCurrentUser(newUser)
-                    history.push('/items')
+                    history.push('/items')                                          
+                    loadFetch() 
                 })
             } else {
                 res.json().then(data => {
