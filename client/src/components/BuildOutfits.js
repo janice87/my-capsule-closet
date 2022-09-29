@@ -2,8 +2,6 @@ import {useState} from 'react'
 import { useHistory } from 'react-router-dom';
 import { Box, Container, MenuItem, Button, TextField } from '@mui/material';
 
-// const BuildOutfits = ({onAddOutfitItem, outfits, items, capsules, onUpdateCapsules, updateCapsuleObj, capsule}) => {
-
 const BuildOutfits = ({onAddOutfitItem, outfits, items}) => {
     const [outfitItem, setOutfitItem] = useState({
         outfit_id: "",
@@ -38,9 +36,7 @@ const BuildOutfits = ({onAddOutfitItem, outfits, items}) => {
         })
     }
    
-    const handleOnchange = (e) => {
-        // console.log(e.target.name)
-        // console.log(e.target.value)
+    const handleOnchange = (e) => {       
         setOutfitItem({...outfitItem, 
             [e.target.name]: e.target.value
         })

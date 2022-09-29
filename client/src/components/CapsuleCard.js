@@ -7,7 +7,6 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 
 const CapsuleCard = ({capsule, updateCapsuleObj, onDeleteCapsule}) => {
-  // const CapsuleCard = ({capsule, onDeleteCapsule}) => {
     const [errors, setErrors] = useState(false)
     const {capsule_name, id} = capsule
     const history = useHistory()

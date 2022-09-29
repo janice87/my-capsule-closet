@@ -32,10 +32,8 @@ const ItemDetail = ({itemObj, onDeleteItem}) => {
       })
     }
 
-
     return (
-      <div>   
-        
+      <div>  
         <Container maxWidth="xs">
           <Box     
             justifyContent="center"
@@ -67,8 +65,7 @@ const ItemDetail = ({itemObj, onDeleteItem}) => {
           <CardActions>      
             <Button size="small" variant="contained" color="primary" onClick={handleBack}>BACK</Button>
             <Button size="small" variant="contained"  color="primary" onClick={handleEditItem}>EDIT</Button>
-            <Button size="small" variant="contained" color="primary" onClick={handleDeleteItem}>DELETE</Button>
-           
+            <Button size="small" variant="contained" color="primary" onClick={handleDeleteItem}>DELETE</Button>           
           </CardActions>
         </Card>
         </Box>
