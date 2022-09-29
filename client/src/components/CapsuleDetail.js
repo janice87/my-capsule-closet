@@ -1,40 +1,35 @@
-import {useEffect, useState} from 'react'
+//import {useEffect, useState} from 'react'
+
+import { useState} from 'react'
 import { useHistory } from 'react-router-dom';
 import { Box, Container, Typography, Button } from '@mui/material';
 import OutfitCard from './OutfitCard';
 
-const CapsuleDetail = ({capsule}) => {
-  const [outfits, setOutfits] = useState([])
+// this adds new outfit and shows up in capsule detail
+ const CapsuleDetail = ({capsule, outfits, outfitItems, onDeleteOutfit, onUpdateOutfitObj}) => {
+//const CapsuleDetail = ({capsule, outfitItems, onDeleteOutfit}) => {
+//const CapsuleDetail = ({capsule}) => {
+ // const [outfitsArray, setOutfitsArray] = useState([])
   const [errors, setErrors] = useState(false)
   const {capsule_name, id} = capsule
+  
+  // const {capsule_name, id, outfits} = capsule
   const history = useHistory()
 
-  useEffect(() => {
-    fetch('/outfits')
-    .then(res => {
-      if(res.ok) {
-        res.json().then(outfits => {
-          console.log(outfits, "useeffect outfits CAPSULE DETAIL")
-          setOutfits(outfits)
-        })        
-      } else {
-        res.json().then(data => {
-          //console.log(data.error, "outfits cap detail error")
-          setErrors(data.error)
-        })
-      }
-    })
-  },[])
+  // console.log(capsule, "capsule detail")
+  // console.log(outfits, "outfits capsule detail")
+  // console.log(outfitItems, "outfit items capsule detail")
+ 
+ 
+  const handleBack = () => {
+    history.push('/capsules')
+  }  
 
 const outfitsFiltered = outfits.filter(outfit => outfit.capsule_id === id)  
 
 const outfitArray = outfitsFiltered.map(outfit => 
-  <OutfitCard outfit={outfit} key={outfit.id} />
+  <OutfitCard outfit={outfit} key={outfit.id} outfitItems={outfitItems} onDeleteOutfit={onDeleteOutfit} onUpdateOutfitObj={onUpdateOutfitObj} />
 )
-
-const handleBack = () => {
-  history.push('/capsules')
-}   
 
     return (
       <div>       
@@ -55,5 +50,5 @@ const handleBack = () => {
       </div>
     );
   }
-  
+                            
   export default CapsuleDetail;

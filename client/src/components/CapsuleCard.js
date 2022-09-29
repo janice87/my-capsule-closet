@@ -5,7 +5,9 @@ import IconButton from '@mui/material/IconButton'
 import BackspaceOutlinedIcon from '@mui/icons-material/BackspaceOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
- const CapsuleCard = ({capsule, updateCapsuleObj, onDeleteCapsule}) => {
+
+const CapsuleCard = ({capsule, updateCapsuleObj, onDeleteCapsule}) => {
+  // const CapsuleCard = ({capsule, onDeleteCapsule}) => {
     const [errors, setErrors] = useState(false)
     const {capsule_name, id} = capsule
     const history = useHistory()
@@ -15,7 +17,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
         history.push(`/capsules/${id}`)
     }
 
-    const handleDeleteCapsule = () => {
+      const handleDeleteCapsule = () => {
       fetch(`/capsules/${id}`, {
         method: 'DELETE',
         headers: {
@@ -35,6 +37,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
     const handleEditCapsule = () => {
       history.push(`/capsules/${id}/edit`)
     }
+  
    
     return (
       <div>   
@@ -55,21 +58,18 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
           },
         }}
         >    
-         
-        <Typography align="left" variant="h6" style={{ marginLeft: ".5em", marginBottom: ".5em", marginTop: "1em" }}>
+        <Typography variant="button" style={{ marginLeft: "1em", marginBottom: "1em", marginTop: "2em" }}>
           {capsule_name}
-          <IconButton aria-label="delete" size="small" onClick={handleDeleteCapsule} color="secondary" align="right" style={{ marginRight: ".05em", marginLeft: ".05em"}}>
-            <BackspaceOutlinedIcon fontSize="small" />
-          </IconButton> 
-          <IconButton aria-label="edit" size="small" onClick={handleEditCapsule} color="secondary" style={{ marginRight: ".05em", marginLeft: ".05em" }}>
-            <EditOutlinedIcon fontSize="small" />
-          </IconButton>          
-        </Typography> 
-
-        <Box m={1} display="flex" justifyContent="center" alignItems="center" style={{ marginTop: ".5em", marginBottom: "1em" }}>
-          <Button onClick={handleShowCapsule} color="primary" variant="contained" style={{ marginRight: ".5em", marginLeft: ".5em", marginTop: ".5em", marginBottom: "1em" }}>OUTFITS</Button>
-        </Box>    
-      
+          </Typography>          
+            <IconButton aria-label="delete" size="small" onClick={handleDeleteCapsule} color="secondary" style={{ marginLeft: ".05em" }}>
+              <BackspaceOutlinedIcon fontSize="small" />
+            </IconButton>      
+            <IconButton aria-label="edit" size="small" onClick={handleEditCapsule} color="secondary" style={{ marginLeft: ".05em" }}>
+              <EditOutlinedIcon fontSize="small" />
+            </IconButton>                             
+          <Box m={1} display="flex" justifyContent="center" alignItems="center" style={{ marginTop: ".5em", marginBottom: "1em" }}>
+             <Button onClick={handleShowCapsule} color="primary" variant="contained" size="small" style={{ marginRight: ".5em", marginLeft: ".5em", marginTop: ".5em", marginBottom: "1em" }}>OUTFITS</Button>
+          </Box>                      
         </Box>
         </Container>  
         

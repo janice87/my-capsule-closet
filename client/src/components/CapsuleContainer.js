@@ -18,7 +18,7 @@ const CapsuleContainer = ({capsules, updateCapsuleObj, onAddCapsule, onDeleteCap
         justifyContent="center"
         alignItems="center"
         >
-          <Typography variant="h5" align="center" style={{ marginBottom: ".5em", marginTop: "1em" }}> Capsule Wardrobe Collections</Typography>
+          <Typography variant="h5" align="center" style={{ marginBottom: ".5em", marginTop: "1em" }}> CAPSULE COLLECTIONS</Typography>
 
           <Box m={1} display="flex" justifyContent="center" alignItems="center">
             <Button onClick={handleShowForm} size="small" variant="contained" color="primary" style={{ marginRight: ".5em", marginLeft: ".5em" }}>ADD CAPSULE</Button>
