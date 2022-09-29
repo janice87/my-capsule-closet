@@ -28,10 +28,10 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: [
-      'Libre Franklin',
-      'Karla',
-      'Playfair Display',       
-      'Noto Serif HK'
+      'Karla',       
+      'Noto Serif HK',
+      'Playfair Display',
+      'Libre Franklin'
     ].join(',')
   }
 });
@@ -42,24 +42,13 @@ function App() {
   const [capsules, setCapsules] = useState([])
   const [capsuleObj, setCapsuleObj] = useState({})
   const [outfits, setOutfits] = useState([])
-
   const [outfitObj, setOutfitObj] = useState({})
   const [outfitItems, setOutfitItems] = useState([])
   const [errors, setErrors] = useState(false)
   const {setCurrentUser} = useContext(UserContext)
-  
-  useEffect(() => {
-     fetch('/me')
-    .then(res => {
-      if(res.ok) {
-        res.json().then(loggedinUser => {
-          console.log(loggedinUser, "use effect")
-          setCurrentUser(loggedinUser)
-        })
-      }
-    })
 
-    fetch('/outfits')
+  useEffect(() => {
+     fetch('/outfits')
     .then(res => {
       if(res.ok) {
         res.json().then(outfits => {
@@ -68,7 +57,7 @@ function App() {
         })        
       } else {
         res.json().then(data => {
-          //console.log(data.error, "capsules error")
+          //console.log(data.error, "outfits error")
           setErrors(data.error)
         })
       }
@@ -115,10 +104,21 @@ function App() {
         res.json().then(data => setErrors(data.error))
       }
     })  
-  // },[])
-   },[setCurrentUser])
+  },[])
+
+  useEffect(() => {
+    fetch('/me')
+    .then(res => {
+      if(res.ok) {
+        res.json().then(loggedinUser => {
+          console.log(loggedinUser, "use effect /me")
+          setCurrentUser(loggedinUser)
+        })
+      }
+    })
+  },[setCurrentUser])
  
- 
+  
   // need this if we usecontext for signup and navbar???
   const onUpdateCurrentUser = (user) => {
     setCurrentUser(user)
@@ -128,18 +128,44 @@ function App() {
     setItemObj(itemObject)
   }
 
-  const updateCapsuleObj = (capsuleObject) => {
-    
+  const updateCapsuleObj = (capsuleObject) => {    
     setCapsuleObj(capsuleObject)
   }
 
-  const updateOutfitObj = (outfitObject) => {
-    console.log(outfitObject, "outfit obj from app")
+  const updateOutfitObj = (outfitObject) => { 
     setOutfitObj(outfitObject)
   }
 
+  const updateOutfitItems = () => {
+    fetch('/outfit_items')
+    .then(res => {
+      if(res.ok) {
+        res.json().then(data => {
+          console.log(data, "update outfit items")
+          setOutfitItems(data)
+        })
+      } else {
+        res.json().then(data => setErrors(data.error))
+      }
+    }) 
+  }
+
+  const updateOutfits = () => {
+    fetch('/outfits')
+    .then(res => {
+      if(res.ok) {
+        res.json().then(outfits => {
+          console.log(outfits, "useeffect load outfits")
+          setOutfits(outfits)
+        })        
+      } else {
+        res.json().then(data => setErrors(data.error))
+      }
+    })
+  }
+
   
-  // Add/Edit/Delete Items
+  // ITEMS 
   const handleAddNewItem = (newItem) => {
     const updatedItems = [...items, newItem]  
     setItems(updatedItems)    
@@ -154,9 +180,10 @@ function App() {
   const handleOnDeleteItem = (id) => {
     const updatedItems = items.filter(item => item.id !== id)
       setItems(updatedItems)
+       updateOutfitItems()
   } 
 
-  // Add/Edit/Delete Capsules
+  // CAPSULES
   const handleAddCapsule = (newCapsule) => {
     const updatedCapsules = [...capsules, newCapsule]
     setCapsules(updatedCapsules)
@@ -171,9 +198,10 @@ function App() {
   const handleDeleteCapsule = (id) => {
     const updatedCapsules = capsules.filter(capsule => capsule.id !== id)
     setCapsules(updatedCapsules)
+    updateOutfits()
   }
 
-// Add/Delete/Edit outfit
+// OUTFIT
   const handleAddNewOutfit = (newOutfit) => {
     const updatedOutfits = [...outfits, newOutfit]
     setOutfits(updatedOutfits)
@@ -189,10 +217,9 @@ function App() {
   //   setOutfits(updatedOutfits)
   // }
 
-// Add new outfit item
+// OUTFIT ITEM
   const handleAddOutfitItem = (newOutfitItem) => {
-    const updatedOutfitItems = [...outfitItems, newOutfitItem]
-    console.log(updatedOutfitItems, "added outfit item")
+    const updatedOutfitItems = [...outfitItems, newOutfitItem]   
     setOutfitItems(updatedOutfitItems)
   }
 
@@ -209,11 +236,11 @@ function App() {
       {errors ? <h2>{setErrors}</h2> : null}      
       <Switch>  
             <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser} setItems={setItems} setCapsules={setCapsules} setOutfits={setOutfits} setOutfitItems={setOutfitItems} /></Route>  
-            <Route exact path="/signup"><SignupForm updateCurrentUser={onUpdateCurrentUser}/></Route>
+            <Route exact path="/signup"><SignupForm updateCurrentUser={onUpdateCurrentUser} setItems={setItems} setCapsules={setCapsules} setOutfits={setOutfits} setOutfitItems={setOutfitItems} /></Route>
            
             <Route exact path="/items/new"><NewItemForm onAddItem={handleAddNewItem} /></Route>
             <Route exact path="/items/:id/edit"><ItemEditForm onEditItem={handleEditItem} /></Route>
-            <Route exact path="/items/:id"><ItemDetail itemObj={itemObj} onDeleteItem={handleOnDeleteItem } /></Route>
+            <Route exact path="/items/:id"><ItemDetail itemObj={itemObj} onDeleteItem={handleOnDeleteItem} /></Route>
             <Route exact path="/items"><ItemContainer items={items} outfits={outfits} capsules={capsules} updateItemObj={updateItemObj} onAddOutfitItem={handleAddOutfitItem} onAddNewOutfit={handleAddNewOutfit} /></Route>
 
             <Route exact path="/capsules/:id/edit"><CapsuleEditForm onEditCapsule={handleEditCapsuleName} /></Route> 
@@ -221,7 +248,6 @@ function App() {
             <Route exact path="/capsules"><CapsuleContainer capsules={capsules} updateCapsuleObj={updateCapsuleObj} onAddCapsule={handleAddCapsule} onDeleteCapsule={handleDeleteCapsule} /></Route>                       
             
             <Route exact path="/outfits/:id"><OutfitEditForm outfitItems={outfitItems} outfitObj={outfitObj} updateOutfitObj={updateOutfitObj} onDeleteOutfitItem={handleDeleteOutfitItem}setOutfitItems={setOutfitItems} /></Route> 
-          
             <Route exact path="/"><Home /></Route>      
       </Switch>    
       </ThemeProvider>           
