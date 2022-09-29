@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import {UserContext} from '../context/user' 
 import {useParams, useHistory} from 'react-router-dom'
 import { Box, Container, Button, Typography, TextField} from '@mui/material';
+import IconButton from '@mui/material/IconButton'
+import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 
 const CapsuleEditForm = ({onEditCapsule}) => {
     const {currentUser} = useContext(UserContext);
@@ -54,6 +56,10 @@ const CapsuleEditForm = ({onEditCapsule}) => {
             [e.target.name]: e.target.value
         })
     }
+
+    const handleBack = () => {
+        history.push(`/capsules`)
+    }
     
     return (
         <div>
@@ -64,6 +70,9 @@ const CapsuleEditForm = ({onEditCapsule}) => {
         justifyContent="center"
         alignItems="center"
         >
+            <IconButton size="small" onClick={handleBack} color="secondary" style={{ marginLeft: ".05em" }}>             
+            <KeyboardBackspaceOutlinedIcon fontSize="small" />
+            </IconButton> 
           <Typography variant="h6" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}>EDIT CAPSULE NAME</Typography> 
           <br /> 
         </Box>

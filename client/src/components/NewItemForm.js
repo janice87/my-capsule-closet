@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import {UserContext} from '../context/user' 
 import { useHistory } from "react-router-dom";
 import { Box, Container, Button, Typography, TextField, Select, MenuItem } from '@mui/material';
+import IconButton from '@mui/material/IconButton'
+import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 
 const NewItemsForm = ({onAddItem}) => {
     const {currentUser} = useContext(UserContext);
@@ -45,8 +47,10 @@ const NewItemsForm = ({onAddItem}) => {
             [e.target.name]: e.target.value
         })
     }
-    
-    //console.log(currentUser.id)
+
+    const handleBack = () => {
+      history.push(`/items`)
+  }       
     
     return (
         <div>  
@@ -57,6 +61,9 @@ const NewItemsForm = ({onAddItem}) => {
         justifyContent="center"
         alignItems="center"
         >
+           <IconButton size="small" onClick={handleBack} color="secondary" style={{ marginLeft: ".05em" }}>             
+            <KeyboardBackspaceOutlinedIcon fontSize="small" />
+            </IconButton> 
           <Typography variant="h5" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}>ADD ITEM TO CLOSET </Typography> 
           <br /> 
         </Box>
