@@ -1,17 +1,19 @@
 import React, { useState} from "react"; 
-import {useParams} from 'react-router-dom'
+import {useParams, useHistory} from 'react-router-dom'
 import { Box, Container, Typography} from '@mui/material';
 import IconButton from '@mui/material/IconButton'
 import BackspaceOutlinedIcon from '@mui/icons-material/BackspaceOutlined';
+import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 
 const OutfitEditForm = ({outfitItems, updateOutfitObj, outfitObj, onDeleteOutfitItem}) => {
 
 //const OutfitEditForm = ({updateOutfitObj, outfitObj, onDeleteOutfitItem, setOutfitItems}) => {
     const {id} = useParams()
     //console.log(id, "params id")
-    const {outfit_name} = outfitObj
+    const {outfit_name, capsule_id} = outfitObj
 
     const [errors, setErrors] = useState([])
+    const history = useHistory()
    
     
   //console.log(outfitObj, "outfit obj outfit edit form")
@@ -53,18 +55,34 @@ const OutfitEditForm = ({outfitItems, updateOutfitObj, outfitObj, onDeleteOutfit
             </span>
         </div> 
         )) 
-          
 
+    const handleBack = () => {
+          history.push(`/capsules/${capsule_id}`)
+        }
+          
     return (
         <div>              
             <Container maxWidth="lg">
                 <Box
                 m={1}        
-                justifyContent="center"
-                alignItems="center"
+                justifyContent="left"
+                alignItems="left"
                 display="flex"
-                >          
-                <Typography>{outfit_name}</Typography>          
+                style={{ marginTop: "1em", marginBottom: "1em" }}
+                >     
+              <IconButton size="small" onClick={handleBack} color="secondary" style={{ marginRight: ".05em" }}>             
+                <KeyboardBackspaceOutlinedIcon fontSize="small" />
+              </IconButton>      
+                <Typography variant="button" display="block">{outfit_name}</Typography> 
+                </Box>
+            </Container> 
+
+          <Container maxWidth="lg">
+          <Box
+            m={1}        
+            justifyContent="center"
+            alignItems="center"
+            >            
                  {outfitList}                        
             </Box>
             </Container>
