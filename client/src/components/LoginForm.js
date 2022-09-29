@@ -1,19 +1,24 @@
-import React, { useState} from "react"; 
+import React, { useState } from "react"; 
+
 // import React, { useState, useContext } from "react"; 
-// import {UserContext} from '../context/user' 
+// import {UserContext} from '../context/user'  
 import { useHistory } from "react-router";
 import { Link } from 'react-router-dom'
 import { Container, Box, Typography, Grid, TextField, Button} from '@mui/material';
 
-//const LoginForm = () => {
-const LoginForm = ({updateCurrentUser, setItems, setCapsules, setOutfits}) => {
+const LoginForm = ({updateCurrentUser, setItems, setCapsules, setOutfits, setOutfitItems}) => {
+ // const LoginForm = ({updateCurrentUser}) => {
+
+  //nothing loads with context and /me with [setcurrentuser]
+    // const LoginForm = () => {
+    // const {setCurrentUser} = useContext(UserContext)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [errors, setErrors] = useState(false)
-   // const {setCurrentUser} = useContext(UserContext)
     const history = useHistory()
 
-    const loadItems = () => (
+
+    const loadFetch = () => {
       fetch('/items')
       .then(res => {
         if(res.ok) {
@@ -22,9 +27,7 @@ const LoginForm = ({updateCurrentUser, setItems, setCapsules, setOutfits}) => {
           res.json().then(data => setErrors(data.error))
         }
       })
-    )
 
-    const loadCapsules = () => {
       fetch('/capsules')
       .then(res => {
         if(res.ok) {
@@ -33,9 +36,7 @@ const LoginForm = ({updateCurrentUser, setItems, setCapsules, setOutfits}) => {
           res.json().then(data => setErrors(data.error))
         }
       })
-    }
 
-    const loadOutfits = () => (
       fetch('/outfits')
       .then(res => {
         if(res.ok) {
@@ -44,8 +45,21 @@ const LoginForm = ({updateCurrentUser, setItems, setCapsules, setOutfits}) => {
           res.json().then(data => setErrors(data.error))
         }
       })
-    )
 
+      fetch('/outfit_items')
+      .then(res => {
+        if(res.ok) {
+          res.json().then(data => {
+            console.log(data, "outfit items from login")
+            setOutfitItems(data)
+          })
+        } else {
+          res.json().then(data => setErrors(data.error))
+        }
+      })
+
+    }
+  
    const handleSubmit = (e) => {
         e.preventDefault()
         fetch('/login', {
@@ -61,12 +75,10 @@ const LoginForm = ({updateCurrentUser, setItems, setCapsules, setOutfits}) => {
         })
         .then(res => {
             if (res.ok) {
-                res.json().then(currentUser => {
-                    updateCurrentUser(currentUser)                   
-                    history.push('/items')  
-                    loadItems()  
-                    loadCapsules()
-                    loadOutfits()                  
+                res.json().then(currentUser => {                     
+                    updateCurrentUser(currentUser)               
+                    history.push('/items')                       
+                    loadFetch()         
                 })
             } else {
                 res.json().then(data => setErrors(data.error))
