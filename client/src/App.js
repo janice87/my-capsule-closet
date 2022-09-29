@@ -13,50 +13,8 @@ import CapsuleContainer from './components/CapsuleContainer';
 import CapsuleDetail from './components/CapsuleDetail';
 import CapsuleEditForm from "./components/CapsuleEditForm";
 import ItemEditForm from "./components/ItemEditForm";
+import OutfitEditForm from "./components/OutfitEditForm";
 import './App.css';
-
-// const theme = createTheme({
-//   palette: {
-//     primary: {      
-//       main: '#F3E1D9',
-//       contrastText: '#fff',
-//     },
-//     secondary: {     
-//       main: '#F3ECE7',     
-//       contrastText: '#000',
-//     },
-//   },  
-//   typography: {
-//     fontFamily: [
-//       'Libre Franklin',
-//       'Karla',
-//       'Playfair Display',       
-//       'Noto Serif HK'
-//     ].join(',')
-//   }
-// });
-
-
-// const theme = createTheme({
-//   palette: {
-//     primary: {
-//       main: '#F3ECE7',
-//       contrastText: '#000',
-//     },
-//     secondary: {
-//       main: '#F3E1D9',
-//       contrastText: '#000',
-//     }  
-//   },
-//   typography: {
-//     fontFamily: [
-//       'Libre Franklin',
-//       'Karla',
-//       'Playfair Display',       
-//       'Noto Serif HK'
-//     ].join(',')
-//   }
-// });
 
 const theme = createTheme({
   palette: {
@@ -78,18 +36,29 @@ const theme = createTheme({
   }
 });
 
-
 function App() {
   const [items, setItems] = useState([])
   const [itemObj, setItemObj] = useState({})
   const [capsules, setCapsules] = useState([])
   const [capsuleObj, setCapsuleObj] = useState({})
   const [outfits, setOutfits] = useState([])
+
+  const [outfitObj, setOutfitObj] = useState({})
   const [outfitItems, setOutfitItems] = useState([])
   const [errors, setErrors] = useState(false)
   const {setCurrentUser} = useContext(UserContext)
   
   useEffect(() => {
+     fetch('/me')
+    .then(res => {
+      if(res.ok) {
+        res.json().then(loggedinUser => {
+          console.log(loggedinUser, "use effect")
+          setCurrentUser(loggedinUser)
+        })
+      }
+    })
+
     fetch('/outfits')
     .then(res => {
       if(res.ok) {
@@ -146,20 +115,11 @@ function App() {
         res.json().then(data => setErrors(data.error))
       }
     })  
-  },[])
-  
-    // },[setCurrentUser])
-    // console.log(outfits, "outfits from useeffect")
-
-  useEffect(() => {    
-    fetch('/me')
-    .then(res => {
-      if(res.ok) {
-        res.json().then(loggedinUser => setCurrentUser(loggedinUser))
-      }
-    })
-  }, [setCurrentUser])
-
+  // },[])
+   },[setCurrentUser])
+ 
+ 
+  // need this if we usecontext for signup and navbar???
   const onUpdateCurrentUser = (user) => {
     setCurrentUser(user)
   }
@@ -169,18 +129,16 @@ function App() {
   }
 
   const updateCapsuleObj = (capsuleObject) => {
+    
     setCapsuleObj(capsuleObject)
   }
 
-  // const onUpdateCapsules = (capsules) => {
-  //   setCapsules(capsules)
-  // }
+  const updateOutfitObj = (outfitObject) => {
+    console.log(outfitObject, "outfit obj from app")
+    setOutfitObj(outfitObject)
+  }
 
-  // const onUpdateOutfits = (outfitsArray) => {
-  //   console.log(outfitsArray, "outfits from App")
-  //   setOutfits(outfitsArray)
-  // }
-
+  
   // Add/Edit/Delete Items
   const handleAddNewItem = (newItem) => {
     const updatedItems = [...items, newItem]  
@@ -209,21 +167,37 @@ function App() {
       capsule.id === updatedCapsule.id ? updatedCapsule : capsule)
       setCapsules(updatedCapsules)
   }
+
   const handleDeleteCapsule = (id) => {
     const updatedCapsules = capsules.filter(capsule => capsule.id !== id)
     setCapsules(updatedCapsules)
   }
 
-// Add new outfit
+// Add/Delete/Edit outfit
   const handleAddNewOutfit = (newOutfit) => {
     const updatedOutfits = [...outfits, newOutfit]
     setOutfits(updatedOutfits)
   }
 
+  const handleDeleteOutfit = (id) => {
+    const updatedOutfits = outfits.filter(outfit => outfit.id !== id)
+    setOutfits(updatedOutfits)
+  }
+
+  // const handleUpdateOutfitName = (updatedOutfit) => {
+  //   const updatedOutfits = outfits.map(outfit => outfit.id === updatedOutfit.id ? updatedOutfit : outfit)
+  //   setOutfits(updatedOutfits)
+  // }
+
 // Add new outfit item
   const handleAddOutfitItem = (newOutfitItem) => {
     const updatedOutfitItems = [...outfitItems, newOutfitItem]
     console.log(updatedOutfitItems, "added outfit item")
+    setOutfitItems(updatedOutfitItems)
+  }
+
+  const handleDeleteOutfitItem = (id) => {
+    const updatedOutfitItems = outfitItems.filter(outfitItem => outfitItem.id !== id)
     setOutfitItems(updatedOutfitItems)
   }
 
@@ -233,23 +207,21 @@ function App() {
       <ThemeProvider theme={theme}>  
       <Navbar updateCurrentUser={onUpdateCurrentUser} />
       {errors ? <h2>{setErrors}</h2> : null}      
-      <Switch>
-            <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser} setItems={setItems} setCapsules={setCapsules} setOutfits={setOutfits}/></Route>  
-            {/* <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser} /></Route>    */}
+      <Switch>  
+            <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser} setItems={setItems} setCapsules={setCapsules} setOutfits={setOutfits} setOutfitItems={setOutfitItems} /></Route>  
             <Route exact path="/signup"><SignupForm updateCurrentUser={onUpdateCurrentUser}/></Route>
            
             <Route exact path="/items/new"><NewItemForm onAddItem={handleAddNewItem} /></Route>
             <Route exact path="/items/:id/edit"><ItemEditForm onEditItem={handleEditItem} /></Route>
             <Route exact path="/items/:id"><ItemDetail itemObj={itemObj} onDeleteItem={handleOnDeleteItem } /></Route>
             <Route exact path="/items"><ItemContainer items={items} outfits={outfits} capsules={capsules} updateItemObj={updateItemObj} onAddOutfitItem={handleAddOutfitItem} onAddNewOutfit={handleAddNewOutfit} /></Route>
-            {/* <Route exact path="/items"><ItemContainer items={items} outfits={outfits} capsules={capsules} updateItemObj={updateItemObj} onAddOutfitItem={handleAddOutfitItem} onAddNewOutfit={handleAddNewOutfit} onUpdateOutfits={onUpdateOutfits} /></Route> */}
-            {/* <Route exact path="/items"><ItemContainer items={items} outfits={outfits} capsules={capsules} updateItemObj={updateItemObj} updateCapsuleObj={updateCapsuleObj} capsule={capsuleObj} onAddOutfitItem={handleAddOutfitItem} onAddNewOutfit={handleAddNewOutfit} onUpdateCapsules={onUpdateCapsules} /></Route> */}
-
 
             <Route exact path="/capsules/:id/edit"><CapsuleEditForm onEditCapsule={handleEditCapsuleName} /></Route> 
-            {/* <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} outfits={outfits} /></Route>  */}
-            <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} /></Route> 
+            <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} outfits={outfits} outfitItems={outfitItems} onDeleteOutfit={handleDeleteOutfit} onUpdateOutfitObj={updateOutfitObj} /></Route> 
             <Route exact path="/capsules"><CapsuleContainer capsules={capsules} updateCapsuleObj={updateCapsuleObj} onAddCapsule={handleAddCapsule} onDeleteCapsule={handleDeleteCapsule} /></Route>                       
+            
+            <Route exact path="/outfits/:id"><OutfitEditForm outfitItems={outfitItems} outfitObj={outfitObj} updateOutfitObj={updateOutfitObj} onDeleteOutfitItem={handleDeleteOutfitItem}setOutfitItems={setOutfitItems} /></Route> 
+          
             <Route exact path="/"><Home /></Route>      
       </Switch>    
       </ThemeProvider>           
