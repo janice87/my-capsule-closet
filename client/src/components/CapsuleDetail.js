@@ -1,15 +1,12 @@
-//import {useEffect, useState} from 'react'
-
 import { useState} from 'react'
 import { useHistory } from 'react-router-dom';
-import { Box, Container, Typography, Button } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import OutfitCard from './OutfitCard';
+import IconButton from '@mui/material/IconButton'
+import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 
-// this adds new outfit and shows up in capsule detail
- const CapsuleDetail = ({capsule, outfits, outfitItems, onDeleteOutfit, onUpdateOutfitObj}) => {
+const CapsuleDetail = ({capsule, outfits, outfitItems, onDeleteOutfit, onUpdateOutfitObj}) => {
 //const CapsuleDetail = ({capsule, outfitItems, onDeleteOutfit}) => {
-//const CapsuleDetail = ({capsule}) => {
- // const [outfitsArray, setOutfitsArray] = useState([])
   const [errors, setErrors] = useState(false)
   const {capsule_name, id} = capsule
   
@@ -19,8 +16,7 @@ import OutfitCard from './OutfitCard';
   // console.log(capsule, "capsule detail")
   // console.log(outfits, "outfits capsule detail")
   // console.log(outfitItems, "outfit items capsule detail")
- 
- 
+  
   const handleBack = () => {
     history.push('/capsules')
   }  
@@ -33,20 +29,30 @@ const outfitArray = outfitsFiltered.map(outfit =>
 
     return (
       <div>       
-      <Container maxWidth="lg">
-        <Box
-        m={1}        
-        justifyContent="center"
-        alignItems="center"
-        >       
-        <Typography variant="h4" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}>{capsule_name}
-        <span><Button size="small" variant="outlined" onClick={handleBack} color="secondary" style={{ marginRight: "1em", marginLeft: "1em" }}>BACK</Button> 
-        </span> 
-        </Typography>       
-         {outfitArray}
-           </Box>
-        </Container> 
-        {errors ? <h2>{setErrors}</h2> : null} 
+          <Container maxWidth="lg">
+          <Box
+            m={1}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            >          
+              <IconButton size="small" onClick={handleBack} color="secondary" style={{ marginLeft: ".05em" }}>             
+                <KeyboardBackspaceOutlinedIcon fontSize="small" />
+                </IconButton> 
+                <Typography variant="h4" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}>{capsule_name}</Typography>
+                </Box>
+            </Container> 
+     
+          <Container maxWidth="lg">
+          <Box
+            m={1}        
+            justifyContent="center"
+            alignItems="center"
+            >        
+            {outfitArray}
+          </Box>
+          </Container> 
+          {errors ? <h2>{setErrors}</h2> : null} 
       </div>
     );
   }
