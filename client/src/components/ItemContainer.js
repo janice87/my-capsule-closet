@@ -9,6 +9,7 @@ const ItemContainer = ({items, capsules, outfits, updateItemObj, onAddOutfitItem
   const [showForm, setShowForm] = useState(false)
   const [showOutfitForm, setShowOutfitForm] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
+  const [filterBy, setFilterBy] = useState("All")
 
   const handleShowForm = () => {
     setShowForm((showForm) => !showForm)
@@ -22,7 +23,19 @@ const ItemContainer = ({items, capsules, outfits, updateItemObj, onAddOutfitItem
     setSearchTerm(search)
   }
 
+  const onHandleFilter = (filterCategory) => {
+    setFilterBy(filterCategory)
+  }
+
   const searchedItems = items.filter(item => item.brand.toLowerCase().includes(searchTerm.toLowerCase()))
+
+  const filteredItems = searchedItems.filter(item => {
+    if(filterBy === "All") {
+      return true
+    } else {
+      return filterBy === item.category
+    }
+  })
     
     return (
       <div>
@@ -32,7 +45,7 @@ const ItemContainer = ({items, capsules, outfits, updateItemObj, onAddOutfitItem
       display="wrap"        
       style={{ marginBottom: "2em", marginTop: "1em" }}> 
           <Typography variant="h4" align="center" style={{ marginBottom: ".3em", marginTop: ".3em" }}> MY CLOSET </Typography>  
-          <Search searchTerm={searchTerm} onHandleSearchTerm={handleSearchTerm} />
+          <Search searchTerm={searchTerm} onHandleSearchTerm={handleSearchTerm} filterBy={filterBy} onHandleFilter={onHandleFilter} />
 
           <Box m={1} display="flex" justifyContent="center" alignItems="center">
            <Button size="medium" variant="contained" onClick={handleShowOutfitForm} color="primary" style={{ marginRight: ".5em", marginLeft: ".5em" }}>ADD OUTFIT</Button>   
@@ -40,7 +53,7 @@ const ItemContainer = ({items, capsules, outfits, updateItemObj, onAddOutfitItem
           </Box>
            {showOutfitForm ? <NewOutfitForm onAddNewOutfit={onAddNewOutfit} capsules={capsules} /> : null} 
            {showForm ? <BuildOutfits onAddOutfitItem={onAddOutfitItem} outfits={outfits} items={items} /> : null}    
-          <ItemList items={searchedItems} updateItemObj={updateItemObj} /> 
+          <ItemList items={filteredItems} updateItemObj={updateItemObj} /> 
           </Box> 
       </div>
     );

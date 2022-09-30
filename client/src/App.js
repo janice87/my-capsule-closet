@@ -226,7 +226,7 @@ const fetchData = () => {
             <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} outfits={outfits} outfitItems={outfitItems} onDeleteOutfit={handleDeleteOutfit} onUpdateOutfitObj={updateOutfitObj} /></Route> 
             <Route exact path="/capsules"><CapsuleContainer capsules={capsules} updateCapsuleObj={updateCapsuleObj} onAddCapsule={handleAddCapsule} onDeleteCapsule={handleDeleteCapsule} /></Route>                       
             
-            <Route exact path="/outfits/:id"><OutfitEditForm outfitItems={outfitItems} outfitObj={outfitObj} updateOutfitObj={updateOutfitObj} onDeleteOutfitItem={handleDeleteOutfitItem}setOutfitItems={setOutfitItems} /></Route> 
+            <Route exact path="/outfits/:id"><OutfitEditForm outfitItems={outfitItems} outfitObj={outfitObj} updateOutfitObj={updateOutfitObj} onDeleteOutfitItem={handleDeleteOutfitItem} setOutfitItems={setOutfitItems} /></Route> 
             <Route exact path="/"><Home /></Route>      
       </Switch>    
       </ThemeProvider>           
