@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useHistory } from "react-router";
 import { Container, Box, Typography, Grid, TextField, Button} from '@mui/material';
 
-const SignupForm = ({updateCurrentUser, setItems, setCapsules, setOutfits, setOutfitItems}) => {
+const SignupForm = ({updateCurrentUser, onUpdateFetchData}) => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -10,47 +10,6 @@ const SignupForm = ({updateCurrentUser, setItems, setCapsules, setOutfits, setOu
     const [errors, setErrors] = useState([])
     const history = useHistory()
   
-    const loadFetch = () => {
-      fetch('/items')
-      .then(res => {
-        if(res.ok) {
-          res.json().then(data => setItems(data))
-        } else {
-          res.json().then(data => setErrors(data.error))
-        }
-      })
-
-      fetch('/capsules')
-      .then(res => {
-        if(res.ok) {
-          res.json().then(data => setCapsules(data))        
-        } else {
-          res.json().then(data => setErrors(data.error))
-        }
-      })
-
-      fetch('/outfits')
-      .then(res => {
-        if(res.ok) {
-          res.json().then(data => setOutfits(data))
-        } else {
-          res.json().then(data => setErrors(data.error))
-        }
-      })
-
-      fetch('/outfit_items')
-      .then(res => {
-        if(res.ok) {
-          res.json().then(data => {
-            console.log(data, "outfit items from login")
-            setOutfitItems(data)
-          })
-        } else {
-          res.json().then(data => setErrors(data.error))
-        }
-      })
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault()
         fetch('/signup', {
@@ -70,8 +29,8 @@ const SignupForm = ({updateCurrentUser, setItems, setCapsules, setOutfits, setOu
             if(res.ok) {
                 res.json().then(newUser => {
                     updateCurrentUser(newUser)
+                    onUpdateFetchData()
                     history.push('/items')                                          
-                    loadFetch() 
                 })
             } else {
                 res.json().then(data => {
@@ -90,10 +49,9 @@ const SignupForm = ({updateCurrentUser, setItems, setCapsules, setOutfits, setOu
             alignItems="center"           
             style={{marginTop: "2em", marginBottom: "3em"}}
             >       
-      <Grid container direction="column" alignItems="center" justify="center" spacing={6}>
+      <Grid container direction="column" alignItems="center" justify="center" spacing={4}>
         <Grid item> 
-          <Typography variant="h4" align="center">Capsule Closet</Typography>      
-          <Typography variant="h6" align="center">Sign up today</Typography> 
+          <Typography variant="h4" align="center">Capsule Closet</Typography>     
         </Grid>
         
         <Grid container direction="column" alignItems="center" justify="center">
