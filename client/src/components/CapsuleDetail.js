@@ -6,11 +6,8 @@ import IconButton from '@mui/material/IconButton'
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 
 const CapsuleDetail = ({capsule, outfits, outfitItems, onDeleteOutfit, onUpdateOutfitObj}) => {
-//const CapsuleDetail = ({capsule, outfitItems, onDeleteOutfit}) => {
   const [errors, setErrors] = useState(false)
-  const {capsule_name, id} = capsule
-  
-  // const {capsule_name, id, outfits} = capsule
+  const {capsule_name, id} = capsule  
   const history = useHistory()
 
   // console.log(capsule, "capsule detail")
@@ -49,7 +46,7 @@ const outfitArray = outfitsFiltered.map(outfit =>
             justifyContent="center"
             alignItems="center"
             >        
-            {outfitArray}
+            {outfitsFiltered.length > 0 ? outfitArray : <Typography variant="subtitle1" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}>You have no outfits yet</Typography>}
           </Box>
           </Container> 
           {errors ? <h2>{setErrors}</h2> : null} 

@@ -1,12 +1,13 @@
 import React, { useState} from "react"; 
-import {useParams, useHistory} from 'react-router-dom'
+// import {useParams, useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Box, Container, Typography} from '@mui/material';
 import IconButton from '@mui/material/IconButton'
 import BackspaceOutlinedIcon from '@mui/icons-material/BackspaceOutlined';
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 
 const OutfitEditForm = ({outfitItems, updateOutfitObj, outfitObj, onDeleteOutfitItem}) => {
-     const {id} = useParams()
+    // const {id} = useParams()
     //console.log(id, "params id")
     const {outfit_name, capsule_id} = outfitObj
 
@@ -54,11 +55,10 @@ const OutfitEditForm = ({outfitItems, updateOutfitObj, outfitObj, onDeleteOutfit
           })
     }
 
-    // using outfitItems passed in from App COMMENT BACK IN
-    const outfitItemsFiltered = outfitItems.filter(outfitItem => outfitItem.outfit_id === outfitObj.id)
+  const outfitItemsFiltered = outfitItems.filter(outfitItem => outfitItem.outfit_id === outfitObj.id)
     
     //  console.log(outfitItemsFiltered, "filtered")
-      console.log(id, "filtered id")
+      //console.log(id, "filtered id")
     
     const outfitList = outfitItemsFiltered.map((outfitItem) => (
         <div key={outfitItem.id} style={{display: 'inline-flex', flexWrap: 'wrap', margin: "5px"}}>
@@ -70,7 +70,6 @@ const OutfitEditForm = ({outfitItems, updateOutfitObj, outfitObj, onDeleteOutfit
         </div> 
         )) 
   
-
     const handleBack = () => {
           history.push(`/capsules/${capsule_id}`)
         }

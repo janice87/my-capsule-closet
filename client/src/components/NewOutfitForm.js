@@ -5,7 +5,7 @@ import { Box, Container, Button, TextField, MenuItem} from '@mui/material';
 const NewOutfitForm = ({onAddNewOutfit, capsules}) => {
     const [outfitName, setOutfitName] = useState("")
     const [capsuleId, setCapsuleId] = useState("")
-     const [errors, setErrors] = useState([])
+    const [errors, setErrors] = useState([])
     const {currentUser} = useContext(UserContext)
    
     const handleSubmit = (e) => {
