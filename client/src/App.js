@@ -47,63 +47,67 @@ function App() {
   const [errors, setErrors] = useState(false)
   const {setCurrentUser} = useContext(UserContext)
 
-  useEffect(() => {
-     fetch('/outfits')
-    .then(res => {
-      if(res.ok) {
-        res.json().then(outfits => {
-          console.log(outfits, "useeffect load outfits")
-          setOutfits(outfits)
-        })        
-      } else {
-        res.json().then(data => {
-          //console.log(data.error, "outfits error")
-          setErrors(data.error)
-        })
-      }
-    })
+const fetchData = () => {
+  fetch('/outfits')
+  .then(res => {
+    if(res.ok) {
+      res.json().then(outfits => {
+        console.log(outfits, "useeffect load outfits")
+        setOutfits(outfits)
+      })        
+    } else {
+      res.json().then(data => {
+        //console.log(data.error, "outfits error")
+        setErrors(data.error)
+      })
+    }
+  })
 
-    fetch('/items')
-    .then(res => {
-      if(res.ok) {
-        res.json().then(data => {
-          console.log(data, "useeffect load items")
-          setItems(data)
-        })
-      } else {
-        res.json().then(data => {
-          //console.log(data.error, "items")
-          setErrors(data.error)
-        })
-      }
-    })
+  fetch('/items')
+  .then(res => {
+    if(res.ok) {
+      res.json().then(data => {
+        console.log(data, "useeffect load items")
+        setItems(data)
+      })
+    } else {
+      res.json().then(data => {
+        //console.log(data.error, "items")
+        setErrors(data.error)
+      })
+    }
+  })
 
-    fetch('/capsules')
-    .then(res => {
-      if(res.ok) {
-        res.json().then(data => {
-          console.log(data, "useeffect load capsules")
-          setCapsules(data)
-        })        
-      } else {
-        res.json().then(data => {
-          //console.log(data.error, "capsules error")
-          setErrors(data.error)
-        })
-      }
-    })
+  fetch('/capsules')
+  .then(res => {
+    if(res.ok) {
+      res.json().then(data => {
+        console.log(data, "useeffect load capsules")
+        setCapsules(data)
+      })        
+    } else {
+      res.json().then(data => {
+        //console.log(data.error, "capsules error")
+        setErrors(data.error)
+      })
+    }
+  })
 
-    fetch('/outfit_items')
-    .then(res => {
-      if(res.ok) {
-        res.json().then(data => {
-          console.log(data, "useeffect load outfit items")
-          setOutfitItems(data)
-        })
-      } else {
-        res.json().then(data => setErrors(data.error))
-      }
-    })  
+  fetch('/outfit_items')
+  .then(res => {
+    if(res.ok) {
+      res.json().then(data => {
+        console.log(data, "useeffect load outfit items")
+        setOutfitItems(data)
+      })
+    } else {
+      res.json().then(data => setErrors(data.error))
+    }
+  }) 
+}
+
+  useEffect(() => {   
+    fetchData()
   },[])
 
   useEffect(() => {
@@ -118,6 +122,9 @@ function App() {
     })
   },[setCurrentUser])
  
+  const onUpdateFetchData = () => {
+    fetchData ()
+  }
   
   // need this if we usecontext for signup and navbar???
   const onUpdateCurrentUser = (user) => {
@@ -136,34 +143,6 @@ function App() {
     setOutfitObj(outfitObject)
   }
 
-  const updateOutfitItems = () => {
-    fetch('/outfit_items')
-    .then(res => {
-      if(res.ok) {
-        res.json().then(data => {
-          console.log(data, "update outfit items")
-          setOutfitItems(data)
-        })
-      } else {
-        res.json().then(data => setErrors(data.error))
-      }
-    }) 
-  }
-
-  const updateOutfits = () => {
-    fetch('/outfits')
-    .then(res => {
-      if(res.ok) {
-        res.json().then(outfits => {
-          console.log(outfits, "useeffect load outfits")
-          setOutfits(outfits)
-        })        
-      } else {
-        res.json().then(data => setErrors(data.error))
-      }
-    })
-  }
-
   
   // ITEMS 
   const handleAddNewItem = (newItem) => {
@@ -179,8 +158,8 @@ function App() {
 
   const handleOnDeleteItem = (id) => {
     const updatedItems = items.filter(item => item.id !== id)
-      setItems(updatedItems)
-       updateOutfitItems()
+      setItems(updatedItems)     
+      onUpdateFetchData()
   } 
 
   // CAPSULES
@@ -197,8 +176,8 @@ function App() {
 
   const handleDeleteCapsule = (id) => {
     const updatedCapsules = capsules.filter(capsule => capsule.id !== id)
-    setCapsules(updatedCapsules)
-    updateOutfits()
+    setCapsules(updatedCapsules)   
+    onUpdateFetchData()
   }
 
 // OUTFIT
@@ -235,9 +214,9 @@ function App() {
       <Navbar updateCurrentUser={onUpdateCurrentUser} />
       {errors ? <h2>{setErrors}</h2> : null}      
       <Switch>  
-            <Route exact path="/login"><LoginForm updateCurrentUser={onUpdateCurrentUser} setItems={setItems} setCapsules={setCapsules} setOutfits={setOutfits} setOutfitItems={setOutfitItems} /></Route>  
-            <Route exact path="/signup"><SignupForm updateCurrentUser={onUpdateCurrentUser} setItems={setItems} setCapsules={setCapsules} setOutfits={setOutfits} setOutfitItems={setOutfitItems} /></Route>
-           
+            <Route exact path="/login"><LoginForm onUpdateFetchData={onUpdateFetchData} updateCurrentUser={onUpdateCurrentUser} /></Route>  
+            <Route exact path="/signup"><SignupForm onUpdateFetchData={onUpdateFetchData} updateCurrentUser={onUpdateCurrentUser} /></Route>
+                  
             <Route exact path="/items/new"><NewItemForm onAddItem={handleAddNewItem} /></Route>
             <Route exact path="/items/:id/edit"><ItemEditForm onEditItem={handleEditItem} /></Route>
             <Route exact path="/items/:id"><ItemDetail itemObj={itemObj} onDeleteItem={handleOnDeleteItem} /></Route>
