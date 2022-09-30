@@ -1,5 +1,4 @@
 import React, { useState} from "react"; 
-// import {useParams, useHistory} from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { Box, Container, Typography} from '@mui/material';
 import IconButton from '@mui/material/IconButton'
@@ -7,35 +6,12 @@ import BackspaceOutlinedIcon from '@mui/icons-material/BackspaceOutlined';
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 
 const OutfitEditForm = ({outfitItems, updateOutfitObj, outfitObj, onDeleteOutfitItem}) => {
-    // const {id} = useParams()
-    //console.log(id, "params id")
     const {outfit_name, capsule_id} = outfitObj
-
     const [errors, setErrors] = useState([])
     const history = useHistory()
-
-  //   const itemsArray = items.map(itemObj => itemObj)
-
-    
-  //  const {outfits, outfit_items} = itemObj
-  //   console.log(outfits, "outfits destru")
-  //   console.log(outfit_items, "outfits destru")
-//const itemsFiltered = items.outfit_items.map(outfitItem => outfitItem.outfit_id === 36 )
-//console.log(itemsFiltered)
-
-//  const outfitList = outfitItemsFiltered.map((outfitItem) => (
-  //      <div key={outfitItem.id} style={{display: 'inline-flex', flexWrap: 'wrap', margin: "5px"}}>
-  //        <img src={outfitItem.image} key={outfitItem.id} alt="items" style={{height: "35vh"}} /><span>          
-  //        <IconButton aria-label="delete" size="small" onClick={() => handleDeleteOutfitItem(outfitItem.id)} color="secondary" style={{ marginLeft: ".05em" }}>
-  //            <BackspaceOutlinedIcon fontSize="small" />
-  //          </IconButton>   
-  //          </span>
-  //      </div> 
-  //      )) 
-
-    
-  //console.log(outfitObj, "outfit obj outfit edit form")
-  //console.log(outfitItems, "outfit itemss edit form ")
+     
+  //console.log(outfitObj, "outfit obj edit form")
+  //console.log(outfitItems, "outfit items edit form")
 
     const handleDeleteOutfitItem = (outfitItemId) => {
         fetch(`/outfit_items/${outfitItemId}`, {
@@ -45,8 +21,7 @@ const OutfitEditForm = ({outfitItems, updateOutfitObj, outfitObj, onDeleteOutfit
             }
           })
           .then(res => {
-            if(res.ok) {
-                console.log(outfitItemId, "outfititem ID")
+            if(res.ok) {          
                 onDeleteOutfitItem(outfitItemId)  
                 updateOutfitObj(outfitObj)
             } else {
@@ -56,10 +31,9 @@ const OutfitEditForm = ({outfitItems, updateOutfitObj, outfitObj, onDeleteOutfit
     }
 
   const outfitItemsFiltered = outfitItems.filter(outfitItem => outfitItem.outfit_id === outfitObj.id)
-    
-    //  console.log(outfitItemsFiltered, "filtered")
-      //console.log(id, "filtered id")
-    
+  
+  // console.log(outfitItemsFiltered, "filtered")
+       
     const outfitList = outfitItemsFiltered.map((outfitItem) => (
         <div key={outfitItem.id} style={{display: 'inline-flex', flexWrap: 'wrap', margin: "5px"}}>
           <img src={outfitItem.image} key={outfitItem.id} alt="items" style={{height: "35vh"}} /><span>          
