@@ -1,6 +1,6 @@
 import {useState} from 'react'
-import { Box, Container, MenuItem, Button, TextField } from '@mui/material';
-
+import { Box, Container, MenuItem, Button, TextField, Typography } from '@mui/material';
+ 
 const BuildOutfits = ({onAddOutfitItem, outfits, items}) => {
     const [outfitId, setOutfitId] = useState("")
     const [itemId, setItemId] = useState("")
@@ -21,8 +21,7 @@ const BuildOutfits = ({onAddOutfitItem, outfits, items}) => {
         }) 
         .then(res => {
             if(res.ok) {
-                res.json().then(data => {
-                    console.log(data, "outfit item from build outfits")
+                res.json().then(data => {                 
                     onAddOutfitItem(data) 
                     setOutfitId("")
                     setItemId("")                                
@@ -40,11 +39,7 @@ const BuildOutfits = ({onAddOutfitItem, outfits, items}) => {
         <MenuItem value={outfit.id} key={outfit.id}>{outfit.outfit_name}</MenuItem>        
     )
       
-    // const itemOptions = items.map(item => 
-    //     <MenuItem value={item.id} key={item.id}>{item.brand} {item.item_name}</MenuItem>        
-    // )
-
-    const itemOptions = items
+   const itemOptions = items
     .sort((itemA, itemB) => itemA.brand.localeCompare(itemB.brand))    
     .map(item => <MenuItem value={item.id} key={item.id}>{item.brand} {item.item_name}</MenuItem>)
       
@@ -57,7 +52,8 @@ const BuildOutfits = ({onAddOutfitItem, outfits, items}) => {
           justifyContent="center"
           alignItems="center"
           >         
-         <form onSubmit={handleSubmit} style={{ display: "flex"}}>   
+         {/* <form onSubmit={handleSubmit} style={{ display: "flex"}}>    */}
+         <form onSubmit={handleSubmit}>  
      
           <TextField
           style={{ marginBottom: "15px", marginTop: "15px", marginRight: "10px", marginLeft: "10px", width: "180px", height: 30 }} 
@@ -85,7 +81,11 @@ const BuildOutfits = ({onAddOutfitItem, outfits, items}) => {
          {itemOptions}
         </TextField>          
             <Button type="submit" variant="contained" color="primary" style={{ marginBottom: "15px", marginTop: "20px", marginRight: "10px", marginLeft: "1px", width: "30px", height: 30 }} >Submit</Button>
+           
+            <Typography variant="button">        
             {errors ? errors.map(error => <li key={error}>{error}</li>) : null } 
+            </Typography>  
+
             </form>       
             </Box>
         </Container> 

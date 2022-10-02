@@ -3,7 +3,7 @@ import { useHistory} from 'react-router-dom';
 import {Box, Container, Card, CardActions, CardContent, CardMedia, Button, Typography} from '@mui/material';
 
 const ItemDetail = ({itemObj, onDeleteItem}) => {
-    const {item_name, brand, price, category, image, id} = itemObj
+    const {item_name, brand, price, category, image, id, outfits} = itemObj
     const [errors, setErrors] = useState(false)
     const history = useHistory()
 
@@ -60,6 +60,11 @@ const ItemDetail = ({itemObj, onDeleteItem}) => {
             <Typography variant="body1">
             Category: {category}
             </Typography>
+            
+            <Typography variant="body1">
+            CURRENT OUTFITS: {outfits.length > 0 ? outfits.map(outfit => <li key={outfit.outfit_name}>{outfit.outfit_name}</li>): "You have not added this item to any outfits yet "}           
+            </Typography>
+
           </CardContent>
 
           <CardActions>      

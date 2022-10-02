@@ -48,9 +48,7 @@ const CapsuleEditForm = ({onEditCapsule}) => {
         })
     }
 
-    const handleOnchange = (e) => {
-        // console.log(e.target.name)
-        // console.log(e.target.value)
+    const handleOnchange = (e) => {       
         setUpdatedCapsule({
             ...updatedCapsule,
             [e.target.name]: e.target.value
@@ -99,7 +97,11 @@ const CapsuleEditForm = ({onEditCapsule}) => {
                  /> 
             <br/>
             <Button type="submit" variant="contained" style={{ marginBottom: "15px", width: "300px" }}>Submit</Button>
-             {errors ? errors.map(error => <li key={error}>{error}</li>) : null }            
+             
+            <Typography variant="button">        
+             {errors ? errors.map(error => <li key={error}>{error}</li>) : null } 
+             </Typography> 
+
              </form>             
           </Box>
         </Container>   

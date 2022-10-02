@@ -158,7 +158,11 @@ const ItemEditForm = ({onEditItem}) => {
 
             <br/>
             <Button type="submit" variant="contained" style={{ marginBottom: "15px", width: "300px" }}>Submit</Button>
-             {errors ? errors.map(error => <li key={error}>{error}</li>) : null }            
+            
+            <Typography variant="button"> 
+             {errors ? errors.map(error => <li key={error}>{error}</li>) : null }   
+             </Typography> 
+                       
              </form>             
           </Box>
         </Container>   
