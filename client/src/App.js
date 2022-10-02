@@ -14,6 +14,7 @@ import CapsuleDetail from './components/CapsuleDetail';
 import CapsuleEditForm from "./components/CapsuleEditForm";
 import ItemEditForm from "./components/ItemEditForm";
 import OutfitEditForm from "./components/OutfitEditForm";
+import BuildOutfitsPage from "./components/BuildOutfitsPage";
 import './App.css';
 
 const theme = createTheme({
@@ -52,7 +53,7 @@ const fetchData = () => {
   .then(res => {
     if(res.ok) {
       res.json().then(outfits => {
-        console.log(outfits, "useeffect load outfits")
+        //console.log(outfits, "useeffect load outfits")
         setOutfits(outfits)
       })        
     } else {
@@ -67,7 +68,7 @@ const fetchData = () => {
   .then(res => {
     if(res.ok) {
       res.json().then(data => {
-        console.log(data, "useeffect load items")
+        //console.log(data, "useeffect load items")
         setItems(data)
       })
     } else {
@@ -82,7 +83,7 @@ const fetchData = () => {
   .then(res => {
     if(res.ok) {
       res.json().then(data => {
-        console.log(data, "useeffect load capsules")
+        //console.log(data, "useeffect load capsules")
         setCapsules(data)
       })        
     } else {
@@ -97,7 +98,7 @@ const fetchData = () => {
   .then(res => {
     if(res.ok) {
       res.json().then(data => {
-        console.log(data, "useeffect load outfit items")
+        //console.log(data, "useeffect load outfit items")
         setOutfitItems(data)
       })
     } else {
@@ -115,7 +116,7 @@ const fetchData = () => {
     .then(res => {
       if(res.ok) {
         res.json().then(loggedinUser => {
-          console.log(loggedinUser, "use effect /me")
+          //console.log(loggedinUser, "use effect /me")
           setCurrentUser(loggedinUser)
         })
       }
@@ -213,22 +214,23 @@ const fetchData = () => {
       <ThemeProvider theme={theme}>  
       <Navbar updateCurrentUser={onUpdateCurrentUser} />
       {errors ? <h2>{setErrors}</h2> : null}      
-      <Switch>  
+          <Switch>  
             <Route exact path="/login"><LoginForm onUpdateFetchData={onUpdateFetchData} updateCurrentUser={onUpdateCurrentUser} /></Route>  
             <Route exact path="/signup"><SignupForm onUpdateFetchData={onUpdateFetchData} updateCurrentUser={onUpdateCurrentUser} /></Route>
                   
             <Route exact path="/items/new"><NewItemForm onAddItem={handleAddNewItem} /></Route>
             <Route exact path="/items/:id/edit"><ItemEditForm onEditItem={handleEditItem} /></Route>
-            <Route exact path="/items/:id"><ItemDetail itemObj={itemObj} onDeleteItem={handleOnDeleteItem} /></Route>
-            <Route exact path="/items"><ItemContainer items={items} outfits={outfits} capsules={capsules} updateItemObj={updateItemObj} onAddOutfitItem={handleAddOutfitItem} onAddNewOutfit={handleAddNewOutfit} /></Route>
+            <Route exact path="/items/:id"><ItemDetail itemObj={itemObj} onDeleteItem={handleOnDeleteItem} /></Route>          
+            <Route exact path="/items"><ItemContainer items={items} updateItemObj={updateItemObj} /></Route>
 
             <Route exact path="/capsules/:id/edit"><CapsuleEditForm onEditCapsule={handleEditCapsuleName} /></Route> 
             <Route exact path="/capsules/:id"><CapsuleDetail capsule={capsuleObj} outfits={outfits} outfitItems={outfitItems} onDeleteOutfit={handleDeleteOutfit} onUpdateOutfitObj={updateOutfitObj} /></Route> 
             <Route exact path="/capsules"><CapsuleContainer capsules={capsules} updateCapsuleObj={updateCapsuleObj} onAddCapsule={handleAddCapsule} onDeleteCapsule={handleDeleteCapsule} /></Route>                       
             
+            <Route exact path="/outfits/new"><BuildOutfitsPage items={items} outfits={outfits} capsules={capsules} onAddOutfitItem={handleAddOutfitItem} onAddNewOutfit={handleAddNewOutfit} /></Route>  
             <Route exact path="/outfits/:id"><OutfitEditForm outfitItems={outfitItems} outfitObj={outfitObj} updateOutfitObj={updateOutfitObj} onDeleteOutfitItem={handleDeleteOutfitItem} setOutfitItems={setOutfitItems} /></Route> 
             <Route exact path="/"><Home /></Route>      
-      </Switch>    
+          </Switch>    
       </ThemeProvider>           
     </div>
   );
