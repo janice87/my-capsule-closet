@@ -1,6 +1,6 @@
 import React, { useState, useContext  } from "react"; 
 import {UserContext} from '../context/user'  
-import { Box, Container, Button, TextField} from '@mui/material';
+import { Box, Container, Button, TextField, Typography} from '@mui/material';
 
 const NewCapsuleForm = ({onAddCapsule}) => {
     const [capsuleName, setCapsuleName] = useState("")
@@ -54,7 +54,10 @@ const handleSubmit = (e) => {
                   }}       
                  /> 
                  <Button type="submit" variant="contained" color="primary" style={{ marginBottom: "15px", marginTop: "20px", marginRight: "10px", marginLeft: "1px", width: "30px", height: 30 }} >Submit</Button>
+                 
+                 <Typography variant="button">
                  {errors ? errors.map(error => <li key={error}>{error}</li>) : null } 
+                 </Typography>
             </form>  
         </Box>
         </Container> 

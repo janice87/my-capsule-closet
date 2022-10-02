@@ -82,15 +82,19 @@ const LoginForm = ({updateCurrentUser, onUpdateFetchData}) => {
             </Button>   
            </Box>
           </form>   
-        {errors ? <li key={errors}>{errors}</li>: null} 
+            <Typography variant="button"> 
+            {errors ? <li key={errors}>{errors}</li>: null} 
+            </Typography>  
         </Grid>
         </Grid>
         </Grid>  
+
           <Box m={1}  display="flex" justifyContent="center" alignItems="center">
           <Typography variant="h6" align="center" style={{padding: "5px" }}>New User?</Typography>  
           <br />
           <Button to="/signup" component={Link} size="small" variant="contained">SIGNUP</Button> 
           </Box>
+          
         </Box>
         </Container>    
        </div>

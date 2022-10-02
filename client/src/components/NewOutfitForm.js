@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react'
 import {UserContext} from '../context/user' 
-import { Box, Container, Button, TextField, MenuItem} from '@mui/material';
+import { Box, Container, Button, TextField, MenuItem, Typography} from '@mui/material';
 
 const NewOutfitForm = ({onAddNewOutfit, capsules}) => {
     const [outfitName, setOutfitName] = useState("")
@@ -56,7 +56,7 @@ const NewOutfitForm = ({onAddNewOutfit, capsules}) => {
                 onChange={e => setCapsuleId(e.target.value)}  
                 select
                 label="Select Capsule"
-                style={{ marginBottom: "15px", marginTop: "15px", marginRight: "10px", marginLeft: "10px", width: "180px", height: 30 }} 
+                style={{ marginBottom: "10px", marginTop: "10px", marginRight: "10px", marginLeft: "10px", width: "180px", height: 30 }} 
                 >
                 {capsuleOptions}   
             </TextField>
@@ -68,14 +68,16 @@ const NewOutfitForm = ({onAddNewOutfit, capsules}) => {
                   value={outfitName}             
                   onChange={e => setOutfitName(e.target.value)} 
                   label="Outfit Name"
-                  style={{ marginBottom: "15px", marginTop: "15px", marginRight: "10px", marginLeft: "10px", width: "180px", height: 30 }}  
+                  style={{ marginBottom: "10px", marginTop: "10px", marginRight: "10px", marginLeft: "10px", width: "180px", height: 30 }}  
                   InputLabelProps={{
                     shrink: true,
                   }}       
                  />               
-            <Button type="submit" variant="contained" color="primary" style={{ marginBottom: "15px", marginTop: "20px", marginRight: "10px", marginLeft: "1px", width: "30px", height: 30 }} >Submit</Button>
+            <Button type="submit" variant="contained" color="primary" style={{ marginBottom: "15px", marginTop: "15px", marginRight: "10px", marginLeft: "1px", width: "30px", height: 30 }} >Submit</Button>
           
-            {errors ? errors.map(error => <li key={error}>{error}</li>) : null }         
+            <Typography variant="button">
+            {errors ? errors.map(error => <li key={error}>{error}</li>) : null }     
+            </Typography>      
             </form>            
         </Box> 
         </Container>  

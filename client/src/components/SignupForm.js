@@ -97,8 +97,10 @@ const SignupForm = ({updateCurrentUser, onUpdateFetchData}) => {
               SIGN UP
             </Button>            
             </Box>
-          </form>          
-        {errors ? errors.map(error => <li key={error}>{error}</li>) : null }
+          </form>   
+            <Typography variant="button">  
+            {errors ? errors.map(error => <li key={error}>{error}</li>) : null }
+            </Typography>  
         </Grid>
         </Grid>
         </Grid>  

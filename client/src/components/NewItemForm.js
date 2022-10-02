@@ -148,8 +148,11 @@ const NewItemsForm = ({onAddItem}) => {
 
             <br/>
             <Button type="submit" variant="contained" color="primary" style={{ marginBottom: "15px", width: "300px" }} >Submit</Button>
-             {errors ? errors.map(error => <li key={error}>{error}</li>) : null }            
-        
+             
+            <Typography variant="button">  
+             {errors ? errors.map(error => <li key={error}>{error}</li>) : null } 
+             </Typography>            
+                              
             </form>           
           </Box>
         </Container> 
