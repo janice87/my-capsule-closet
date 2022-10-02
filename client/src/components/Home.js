@@ -1,8 +1,17 @@
+import { Box, Typography } from '@mui/material';
+
 const Home = () => {
 
     return (
         <div>
-           <h1>Capsule Closet</h1> 
+        <Box     
+        justifyContent="center"
+        alignItems="center"   
+        display="wrap"        
+        style={{ marginBottom: "2em", marginTop: "1.5em" }}> 
+          <Typography variant="h3" align="center" style={{ marginBottom: ".3em", marginTop: ".3em" }}> Capsule Closet </Typography>  
+              
+           </Box>
         </div>
     )
 }
