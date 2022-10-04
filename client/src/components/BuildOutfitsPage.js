@@ -4,7 +4,6 @@ import NewOutfitForm from './NewOutfitForm';
 import OutfitCarousel from './OutfitCarousel'
 import {Box, Button} from '@mui/material';
 
-// PASS INTO APP
 const BuildOutfitsPage = ({items, capsules, outfits, onAddOutfitItem, onAddNewOutfit}) => {
   const [showForm, setShowForm] = useState(false)
   const [showOutfitForm, setShowOutfitForm] = useState(false)
