@@ -42,7 +42,7 @@ const OutfitCarousel = ({items}) => {
         </Carousel>
 
         <Carousel autoPlay={false} indicators={false} sx={{ width: 300, marginBottom: "1em", marginTop: "1em", marginRight: "1em", marginLeft: "1em" }}>
-          {carouselItems}
+          {carouselItems}         
         </Carousel>
         </Box>
          
