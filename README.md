@@ -1,12 +1,20 @@
-# Phase 5 Project - My Capsule Closet
-
-## Overview
-This is a full stack application built with React on the front end and Rails on the backend. It was built with Material UI and React Slick.
-
+# Phase 5 Project - Capsule Closet
 
 
 ## Description
-My Capsule Closet is a closet organization tool allowing users to create capsule wardrobes and create outfits based on items in their closet. A user is able to create, delete and edit pieces in their virtual closet. By being able to visualize your closet and creating different outfit combinations, you will never run out of outfit ideas.
+Capsule Closet is a closet organization tool allowing users to create capsule wardrobes and create outfits based on items in their closet. A user is able to create, delete and edit pieces in their virtual closet. By being able to visualize your closet and creating different outfit combinations, you will never run out of outfit ideas.
+
+
+## Demo
+![appDemo](client/src/other/capsulecloset.gif)
+
+
+## Overview
+Full stack application built with React on the front end and Rails on the backend. Frontend built with Material UI library and React Slick for carousel feature.
+
+
+![model](client/src/other/capsuleclosetmodel.jpg)
+
 
 ## Requirements
 - Ruby v2.7.4
