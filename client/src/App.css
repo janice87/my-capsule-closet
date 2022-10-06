@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   width: 60%;
   margin: 0 auto;
@@ -7,14 +12,24 @@
 .slick-slide > div {
   margin: 0 15px;
 }
+
 .slick-list {
   margin: 0 15px;
 }
 
+.login {
+  background-image: url("https://images.ctfassets.net/560btuj1niry/7pWM27VXzaG39FapMX1f8F/d713035a1e0e8a2a4656b5073ad765da/AdobeStock_264160910_rid.jpeg");
+  background-size: cover;
+  background-position: center; 
+  overflow: hidden;  
+  height: 1000px; 
+  width: 100%;
+  margin: 0px auto;
+}
+
 .card {  
   border-radius: 10px;
-  overflow: hidden;   
-
+  overflow: hidden;
 }
 
 .card img {
