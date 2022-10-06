@@ -11,8 +11,6 @@ end
 private
 
 def authenticate_user
-  # render json: {error: [User: "Not Authorized"]}, status: :unauthorized unless current_user
-  # render json: {error: {User: "Not Authorized"}}, status: :unauthorized unless current_user
   render json: {error: "Not Authorized"}, status: :unauthorized unless current_user
 end
 

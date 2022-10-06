@@ -1,11 +1,6 @@
 class OutfitsController < ApplicationController
-    # def index
-    #     render json: Outfit.all.order(:outfit_name)
-    # end
-
     def index
-         render json: current_user.outfits.order(:outfit_name)
-        # render json: current_user.outfits.order(:capsule)
+         render json: current_user.outfits.order(:outfit_name)       
     end
 
     def show
