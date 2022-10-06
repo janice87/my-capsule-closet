@@ -127,8 +127,7 @@ const fetchData = () => {
     fetchData ()
   }
   
-  // need this if we usecontext for signup and navbar???
-  const onUpdateCurrentUser = (user) => {
+   const onUpdateCurrentUser = (user) => {
     setCurrentUser(user)
   }
 
@@ -144,7 +143,6 @@ const fetchData = () => {
     setOutfitObj(outfitObject)
   }
 
-  
   // ITEMS 
   const handleAddNewItem = (newItem) => {
     const updatedItems = [...items, newItem]  
@@ -192,11 +190,6 @@ const fetchData = () => {
     setOutfits(updatedOutfits)
   }
 
-  // const handleUpdateOutfitName = (updatedOutfit) => {
-  //   const updatedOutfits = outfits.map(outfit => outfit.id === updatedOutfit.id ? updatedOutfit : outfit)
-  //   setOutfits(updatedOutfits)
-  // }
-
 // OUTFIT ITEM
   const handleAddOutfitItem = (newOutfitItem) => {
     const updatedOutfitItems = [...outfitItems, newOutfitItem]   
@@ -239,3 +232,4 @@ const fetchData = () => {
 export default App;
 
 
+    

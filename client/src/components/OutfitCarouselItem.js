@@ -1,5 +1,4 @@
 import React from 'react'
-//import { Paper } from '@mui/material'
 import {Card, CardMedia, CardContent, Typography} from '@mui/material';
 
 const OutfitCarouselItem = ({item}) => {

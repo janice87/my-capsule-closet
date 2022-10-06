@@ -33,8 +33,7 @@ const HomeBottomsCarousel = () => {
       <IconButton color="secondary">
         <KeyboardArrowLeftIcon fontSize="medium" />
       </IconButton> 
-        </div>
-      
+        </div>      
     );
   }
   
@@ -43,7 +42,7 @@ const settings = {
       infinite: true,
       speed: 500,
       slidesToShow: 3,
-      slidesToScroll: 3,
+      slidesToScroll: 1,
       initialSlide: 0,
       autoplay: true,
       autoplaySpeed: 5000,

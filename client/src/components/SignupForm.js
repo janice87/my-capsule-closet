@@ -42,7 +42,7 @@ const SignupForm = ({updateCurrentUser, onUpdateFetchData}) => {
     }
 
     return (
-        <div>  
+        <div>            
             <Container maxWidth="xs">
             <Box     
             justifyContent="center"
@@ -52,6 +52,8 @@ const SignupForm = ({updateCurrentUser, onUpdateFetchData}) => {
       <Grid container direction="column" alignItems="center" justify="center" spacing={4}>
         <Grid item> 
           <Typography variant="h4" align="center">Capsule Closet</Typography>     
+          <Typography variant="body2" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}>Sign up to visualize pieces in your closet and create capsules and outfits.
+           </Typography> 
         </Grid>
         
         <Grid container direction="column" alignItems="center" justify="center">
@@ -106,7 +108,7 @@ const SignupForm = ({updateCurrentUser, onUpdateFetchData}) => {
         </Grid>  
         </Box>
         </Container>
-        </div>
+        </div>      
    );
  }
  

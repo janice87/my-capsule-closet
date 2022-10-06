@@ -1,17 +1,9 @@
 import React, { useState } from "react"; 
-
-// import React, { useState, useEffect, useContext } from "react"; 
-// import {UserContext} from '../context/user'  
 import { useHistory } from "react-router";
 import { Link } from 'react-router-dom'
 import { Container, Box, Typography, Grid, TextField, Button} from '@mui/material';
 
-
 const LoginForm = ({updateCurrentUser, onUpdateFetchData}) => {
-
-  //nothing loads with context and /me with [setcurrentuser]
-    // const LoginForm = ({setItems, setCapsules, setOutfits, setOutfitItems}) => {
-    // const {setCurrentUser} = useContext(UserContext)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [errors, setErrors] = useState(false)
@@ -43,20 +35,20 @@ const LoginForm = ({updateCurrentUser, onUpdateFetchData}) => {
         })
     }
 
-    return (
-      <div>  
-        <Container maxWidth="xs">
+    return (    
+     <div className="login">
+        <Container maxWidth="xs">      
          <Box     
             justifyContent="center"
-            alignItems="center"           
-            style={{ marginTop: "3em", marginBottom: "3em" }}
+            alignItems="center"                    
+            style={{ marginBottom: "3em", marginTop: "1em" }}            
           >      
           <Grid container direction="column" alignItems="center" justify="center">
             <Grid item> 
               <Typography variant="h4" align="center">Capsule Closet Login</Typography> 
             </Grid>
        
-        <Grid container direction="column" alignItems="center" justify="center" style={{ marginBottom: "1em", marginTop: "1em" }}>
+        <Grid container direction="column" alignItems="right" justify="right" style={{ marginBottom: "1em", marginTop: "1em" }}>
         <Grid item style={{ border: "0.2px solid gray", paddingLeft: "10px", paddingRight: "10px" }}>              
           <form onSubmit={handleSubmit}> 
             <TextField
@@ -97,7 +89,7 @@ const LoginForm = ({updateCurrentUser, onUpdateFetchData}) => {
           
         </Box>
         </Container>    
-       </div>
+       </div>     
     );
   }
   

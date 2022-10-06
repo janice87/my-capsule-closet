@@ -51,8 +51,7 @@ const BuildOutfits = ({onAddOutfitItem, outfits, items}) => {
           flexDirection="row"      
           justifyContent="center"
           alignItems="center"
-          >         
-         {/* <form onSubmit={handleSubmit} style={{ display: "flex"}}>    */}
+          >       
          <form onSubmit={handleSubmit}>  
      
           <TextField

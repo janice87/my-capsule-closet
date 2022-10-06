@@ -33,8 +33,7 @@ const HomeShirtCarousel = () => {
       <IconButton color="secondary">
         <KeyboardArrowLeftIcon fontSize="medium" />
       </IconButton> 
-        </div>
-      
+        </div>      
     );
   }
   
