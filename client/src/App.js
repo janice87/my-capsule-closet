@@ -206,7 +206,7 @@ const fetchData = () => {
     <div>
       <ThemeProvider theme={theme}>  
       <Navbar updateCurrentUser={onUpdateCurrentUser} />
-      {errors ? <h2>{setErrors}</h2> : null}      
+      {errors ? <h2>{errors}</h2> : null}      
           <Switch>  
             <Route exact path="/login"><LoginForm onUpdateFetchData={onUpdateFetchData} updateCurrentUser={onUpdateCurrentUser} /></Route>  
             <Route exact path="/signup"><SignupForm onUpdateFetchData={onUpdateFetchData} updateCurrentUser={onUpdateCurrentUser} /></Route>
