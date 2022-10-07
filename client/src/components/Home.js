@@ -18,7 +18,7 @@ const Home = () => {
         style={{ marginBottom: "2em", marginTop: "1.5em" }}> 
           <Typography variant="h3" align="center" style={{ marginBottom: ".3em", marginTop: ".3em" }}> CAPSULE CLOSET </Typography>  
           <Typography variant="body1" align="center" style={{ marginBottom: "1em", marginTop: "1em" }}> Your capsule wardrobe closet organization tool </Typography>        
-          <Typography variant="h5" align="center" style={{ marginBottom: ".3em", marginTop: ".3em" }}> 30 PIECES = 100 OTFITS </Typography> 
+          <Typography variant="h5" align="center" style={{ marginBottom: ".3em", marginTop: ".3em" }}> 30 PIECES = 100 OUTFITS </Typography> 
         </Box>
             <HomeShirtCarousel />
             <HomeBottomsCarousel />   
