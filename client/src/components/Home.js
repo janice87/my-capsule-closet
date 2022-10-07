@@ -5,8 +5,8 @@ import HomeBottomsCarousel from './HomeBottomsCarousel';
 const Home = () => {
     const items = ["3 pairs of denim (Jeans, Shorts)", "2 pairs of pants (Tailored Pants, Wide Leg Pants)", "1 Skirt", "5 shirts (Classic solid tees, blouses, tanks)", "3 sweaters (Turtlenecks, Chunky knits, Cashmere)", "3 coats (Trench Coat, Leather Jacket, Denim Jacket)", "2 blazers (Oversized Blazer, Plaid Blazer)", "3 dresses", "5 shoes (Sneakers, Boots, Flats, Sandals, Heels)", "3 handbags (Tote, Handbag)" ]
     
-    const checklistItems = items.map(item => <div>
-           <Typography key={item} variant="button" align="justify" style={{ margin: "2em"}}> ☐ {item}</Typography>  
+    const checklistItems = items.map((item, index) => <div>
+           <Typography key={index} variant="button" align="justify" style={{ margin: "2em"}}> ☐ {item}</Typography>  
     </div>)
 
     return (

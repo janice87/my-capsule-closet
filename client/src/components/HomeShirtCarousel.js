@@ -81,7 +81,7 @@ const shirts = ["https://lp.stories.com/app005prod?set=key[resolve.pixelRatio],v
 
 const shirtsList = shirts.map((shirt, index) =>
   <div key={index} className="card">
-       <img src={shirt} alt="shirt"/>
+       <img src={shirt} alt="shirt" key={index} />
   </div> )
 
   return (  

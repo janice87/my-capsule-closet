@@ -205,9 +205,8 @@ const fetchData = () => {
   return (
     <div>
       <ThemeProvider theme={theme}>  
-      <Navbar updateCurrentUser={onUpdateCurrentUser} />
-      {errors ? <h2>{errors}</h2> : null}      
-          <Switch>  
+      <Navbar updateCurrentUser={onUpdateCurrentUser} />     
+          <Switch>
             <Route exact path="/login"><LoginForm onUpdateFetchData={onUpdateFetchData} updateCurrentUser={onUpdateCurrentUser} /></Route>  
             <Route exact path="/signup"><SignupForm onUpdateFetchData={onUpdateFetchData} updateCurrentUser={onUpdateCurrentUser} /></Route>
                   
@@ -222,7 +221,8 @@ const fetchData = () => {
             
             <Route exact path="/outfits/new"><BuildOutfitsPage items={items} outfits={outfits} capsules={capsules} onAddOutfitItem={handleAddOutfitItem} onAddNewOutfit={handleAddNewOutfit} /></Route>  
             <Route exact path="/outfits/:id"><OutfitEditForm outfitItems={outfitItems} outfitObj={outfitObj} updateOutfitObj={updateOutfitObj} onDeleteOutfitItem={handleDeleteOutfitItem} setOutfitItems={setOutfitItems} /></Route> 
-            <Route exact path="/"><Home /></Route>      
+            <Route exact path="/"><Home /></Route>
+             {errors ? <h6>{errors}</h6> : null}      
           </Switch>    
       </ThemeProvider>           
     </div>

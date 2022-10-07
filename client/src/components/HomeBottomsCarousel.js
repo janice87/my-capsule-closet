@@ -80,7 +80,7 @@ const bottoms = ["https://static.zara.net/photos///2022/I/0/1/p/6164/172/427/2/w
 
 const bottomsList = bottoms.map((bottom, index) =>
   <div key={index} className="bottoms">
-       <img src={bottom} alt="pants"/>
+       <img src={bottom} alt="pants" key={index} />
   </div> )
 
   return (  
