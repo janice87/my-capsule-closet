@@ -9,6 +9,9 @@ Capsule Closet is a closet organization tool allowing users to create capsule wa
 ![appDemo](client/src/other/capsulecloset.gif)
 
 
+Demo Link: https://www.loom.com/share/b0d6bc55d64a43ccb883be34c0c71c04
+
+
 ## Overview
 Full stack application built with React on the front end and Rails on the backend. Frontend built with Material UI library and React Slick for carousel feature.
 
